@@ -3,7 +3,10 @@ import random
 
 pygame.init()
 
+map_one=True
 if map_one:
+    dash=True
+elif not map_one:
     dash=False
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 2560, 1395
@@ -127,3 +130,6 @@ def spawn_platforms(start_x, count):
         y = random.randint(250, 750)
         new_plats.append(pygame.Rect(current_x, y, width, 20))
     return new_plats
+player = Player()
+platforms = [pygame.Rect(0, 550, 800, 50)] 
+platforms += spawn_platforms(700, 200)
