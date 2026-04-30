@@ -23,3 +23,6 @@ run = True
 while run:
     playermove(player, bird)
     birdmovement(bird, player, screen)
+
+    if player.colliderect(bird):
+        player = player.inflate(1, 1)

@@ -8,7 +8,7 @@ import pygame
         coords = coords"""
     
 def mover(bird, x, y):
-        bird.move_ip(x, y)
+    bird.move_ip(x, y)
     
 def birdmovement(bird, player, screen):
     #if player.state=="air" and bird.danger=="bird":
@@ -30,7 +30,7 @@ def birdmovement(bird, player, screen):
         ydir = 1
     else:
         ydir = -1
-        
+
     mover(bird, xdir, ydir)
 
 
@@ -55,7 +55,5 @@ def playermove(player, bird):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-
-    birdmovement(bird, player)
     
     pygame.display.update()
