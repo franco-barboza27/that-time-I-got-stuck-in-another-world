@@ -8,7 +8,7 @@ GRAVITY = 1
 JUMP_HEIGHT = -20
 PLAYER_SPEED = 6
 AUTO_SCROLL_SPEED = 5
-
+PLAYER_COLOR = (0, 0, 255)
 PLATFORM_COLOR = (34, 130, 34)
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -19,10 +19,11 @@ player = pygame.Rect((300, 250, 50, 50))
 
 bird = pygame.Rect((1000, 1000, 50, 50))
 
+
 run = True
 while run:
     playermove(player, bird)
     birdmovement(bird, player, screen)
 
     if player.colliderect(bird):
-        player = player.inflate(1, 1)
+        run = False
