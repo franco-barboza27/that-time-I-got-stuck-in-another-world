@@ -16,8 +16,10 @@ pygame.display.set_caption("Test")
 clock = pygame.time.Clock()
 
 player = pygame.Rect((300, 250, 50, 50))
+player_color="blue"
 
 bird = pygame.Rect((1000, 1000, 50, 50))
+
 
 run = True
 while run:
