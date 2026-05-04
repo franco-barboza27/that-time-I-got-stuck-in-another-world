@@ -20,6 +20,10 @@ SKY_BLUE = (135, 206, 235)
 PLAYER_COLOR = (0, 0, 255)
 PLATFORM_COLOR = (34, 139, 34)
 
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("That Time I Got Stuck In Another World With No Way Back Home And Had To Use Magical Movement Abilities To Get Warped Back!")
+clock = pygame.time.Clock()
+
 class Player:
     def __init__(self):    # x pos, y pos, x width, y height
         self.rect = pygame.Rect(100, 300, 40, 40)
@@ -115,12 +119,15 @@ class Player:
             # Reset platforms to starting state and return the new list
             platforms = [pygame.Rect(0, 550, 800, 50)]
             platforms += spawn_platforms(400, 10)
-
+    
             # stop further movement processing this frame
-            return platforms
+            return platforms    
 
         return platforms
     
+    def draw(self):
+        pygame.draw.rect(screen, PLAYER_COLOR, self.rect)
+
 def spawn_platforms(start_x, count):
     new_plats = []
     current_x = start_x
@@ -130,6 +137,36 @@ def spawn_platforms(start_x, count):
         y = random.randint(250, 750)
         new_plats.append(pygame.Rect(current_x, y, width, 20))
     return new_plats
+
 player = Player()
 platforms = [pygame.Rect(0, 550, 800, 50)] 
 platforms += spawn_platforms(700, 200)
+
+running = True
+while running:
+    clock.tick(FPS)
+
+    score=+1
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    for plat in platforms:
+        plat.x -= AUTO_SCROLL_SPEED
+
+    platforms = player.move(platforms)
+    
+    if platforms[-1].x < SCREEN_WIDTH:
+        platforms += spawn_platforms(platforms[-1].x, 5)
+
+    platforms = [p for p in platforms if p.right > -100]
+
+    screen.fill(SKY_BLUE)
+    for plat in platforms:
+        pygame.draw.rect(screen, PLATFORM_COLOR, plat)
+    player.draw()
+
+    pygame.display.update()
+
+pygame.quit()
