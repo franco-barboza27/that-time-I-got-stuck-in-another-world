@@ -3,6 +3,7 @@
 # libraries
 import pygame
 import sys
+import csv
 
 WHITE = (255,255,255)
 LIGHT = (170,170,170)
@@ -13,7 +14,9 @@ BG = (192,192,192)
 pygame.init()
 SCREEN = pygame.display.set_mode((800, 600))
 
-font = pygame.font.SysFont("Corbel", 40)
+font = pygame.font.SysFont("helvetica", 40)
+small_font = pygame.font.SysFont("helvetica", 25)
+title_font = pygame.font.SysFont("helvetica", 80)
 
 # saves menu:
 # delete save
@@ -51,36 +54,62 @@ def display_saves_menu(screen):
         screen.fill(BG)
         mouse = pygame.mouse.get_pos()
 
-        save_one_button = pygame.Rect(100, 300, 140, 50)
-        save_two_button = pygame.Rect(100, 380, 140, 50)
-        save_three_button = pygame.Rect(100, 460, 140, 50)
-
-        pygame.draw.rect(screen, LIGHT if save_one_button.collidepoint(mouse) else DARK, save_one_button)
-        pygame.draw.rect(screen, LIGHT if save_two_button.collidepoint(mouse) else DARK, save_two_button)
-        pygame.draw.rect(screen, LIGHT if save_three_button.collidepoint(mouse) else DARK, save_three_button)
+        saves_menu_text = title_font.render("Save Menu", True, WHITE)
 
         save_one_text = font.render("Save 1", True, WHITE)
         save_two_text = font.render("Save 2", True, WHITE)
         save_three_text = font.render("Save 3", True, WHITE)
 
-        screen.blit(save_one_text, (120, 300))
-        screen.blit(save_two_text, (120, 380))
-        screen.blit(save_three_text, (120, 460))
+        save_one_button = pygame.Rect(75, 150, 240, 75)
+        save_two_button = pygame.Rect(75, 250, 240, 75)
+        save_three_button = pygame.Rect(75, 350, 240, 75)
+
+        quit_text = small_font.render("Quit", True, WHITE)
+
+        quit_button = pygame.Rect(75, 500, 100, 50)
+
+        pygame.draw.rect(screen, LIGHT if save_one_button.collidepoint(mouse) else DARK,save_one_button, border_radius=10)
+        pygame.draw.rect(screen, LIGHT if save_two_button.collidepoint(mouse) else DARK, save_two_button, border_radius=10)
+        pygame.draw.rect(screen, LIGHT if save_three_button.collidepoint(mouse) else DARK, save_three_button, border_radius=10)
+
+        pygame.draw.rect(screen, LIGHT if quit_button.collidepoint(mouse) else DARK, quit_button, border_radius=10)
+
+        screen.blit(saves_menu_text, (215, 20))
+        screen.blit(save_one_text, (135, 165))
+        screen.blit(save_two_text, (135, 265))
+        screen.blit(save_three_text, (135, 365))
+        screen.blit(quit_text, (100, 510))
+
+        def spawn_delete_button():
+            delete_save_button = pygame.Rect(100, 100, 300, 300)
+            delete_save_text = font.render("Delete Save", True, WHITE)
+            pygame.draw.rect(screen, LIGHT if delete_save_button.collidepoint(mouse) else DARK, delete_save_button, border_radius=10)
+            screen.blit(delete_save_text, (300, 300))
 
         for event in pygame.event.get():
-
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if save_one_button.collidepoint(mouse):
+                    save_selected = "Save One"
+                    print(f"Save 1 Button Clicked\nSave Selected: {save_selected}")
+                    
+                    spawn_delete_button()
+                    
+                elif save_two_button.collidepoint(mouse):
+                    save_selected = "Save Two"
+                    print(f"Save 2 Button Clicked\nSave Selected: {save_selected}")
 
-                """if play_button.collidepoint(mouse):
-                    pass
+                elif save_three_button.collidepoint(mouse):
+                    save_selected = "Save Three"
+                    print(f"Save 3 Button Clicked\nSave Selected: {save_selected}")
 
-                if quit_button.collidepoint(mouse):
+                elif quit_button.collidepoint(mouse):
                     pygame.quit()
-                    sys.exit()"""
+                    sys.exit()
+
 
         pygame.display.update()
 
