@@ -46,6 +46,7 @@ class Player:
         if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and not self.dashing:
             dx += PLAYER_SPEED
             direction=True
+            
         # Dash with cooldown (1 second by default)
         if not hasattr(self, "dash_cooldown"):
             self.dash_cooldown = 0
