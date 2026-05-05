@@ -140,14 +140,13 @@ def spawn_platforms(start_x, count):
         new_plats.append(pygame.Rect(current_x, y, width, 20))
     return new_plats
 
-def gameloop(player, blocks):
+def gameloop(player, platforms):
     clock.tick(FPS)
-
-    score=+1
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            pygame.quit()
+            raise SystemExit
 
     for block in blocks:
         block.x -= AUTO_SCROLL_SPEED
@@ -165,3 +164,4 @@ def gameloop(player, blocks):
     player.draw()
 
     pygame.display.update()
+    return platforms
