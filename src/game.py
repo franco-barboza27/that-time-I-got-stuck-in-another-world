@@ -140,28 +140,28 @@ def spawn_platforms(start_x, count):
         new_plats.append(pygame.Rect(current_x, y, width, 20))
     return new_plats
 
-def gameloop(player, blocks):
+def gameloop(player, platforms):
     clock.tick(FPS)
-
-    score=+1
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            pygame.quit()
+            raise SystemExit
 
-    for plat in platforms:
-        plat.x -= AUTO_SCROLL_SPEED
+    for block in blocks:
+        block.x -= AUTO_SCROLL_SPEED
 
-    platforms = player.move(platforms)
+    blocks = player.move(blocks)
     
-    if platforms[-1].x < SCREEN_WIDTH:
-        platforms += spawn_platforms(platforms[-1].x, 5)
+    if blocks[-1].x < SCREEN_WIDTH:
+        blocks += spawn_platforms(blocks[-1].x, 5)
 
-    platforms = [p for p in platforms if p.right > -100]
+    blocks = [p for p in blocks if p.right > -100]
 
     screen.fill(SKY_BLUE)
-    for plat in platforms:
+    for plat in blocks:
         pygame.draw.rect(screen, PLATFORM_COLOR, plat)
     player.draw()
 
     pygame.display.update()
+    return platforms
