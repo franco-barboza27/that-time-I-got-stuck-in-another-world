@@ -1,4 +1,5 @@
 import pygame
+from obstacles import *
 import random
 
 pygame.init()
@@ -139,12 +140,7 @@ def spawn_platforms(start_x, count):
         new_plats.append(pygame.Rect(current_x, y, width, 20))
     return new_plats
 
-player = Player()
-platforms = [pygame.Rect(0, 550, 800, 50)] 
-platforms += spawn_platforms(700, 200)
-
-running = True
-while running:
+def gameloop(player, blocks):
     clock.tick(FPS)
 
     score=+1
@@ -169,5 +165,3 @@ while running:
     player.draw()
 
     pygame.display.update()
-
-pygame.quit()
