@@ -12,6 +12,7 @@ def mover(bird, x, y):
     
 def birdmovement(bird, player, screen):
     #if player.state=="air" and bird.danger=="bird":
+
     if player.left >= bird.left:
         xdif = True
     else:
@@ -33,27 +34,14 @@ def birdmovement(bird, player, screen):
 
     mover(bird, xdir, ydir)
 
+    if player.on_ground == True:
+        xdir = xdir*-1
+        ydir = ydir*-1
+    else:
+        pass
+        
+
 
     screen.fill((0,0,0))
     pygame.draw.rect(screen, (255, 0, 0), player)
     pygame.draw.rect(screen, (66,228, 87), bird)
-
-def playermove(player, bird):
-    key = pygame.key.get_pressed()
-    if key[pygame.K_w] == True:
-        player.move_ip(0, -2)
-    
-    if key[pygame.K_a] == True:
-        player.move_ip(-2, 0)
-    
-    if key[pygame.K_s] == True:
-        player.move_ip(0, 2)
-    
-    if key[pygame.K_d] == True:
-        player.move_ip(2, 0)
-    
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-    
-    pygame.display.update()
