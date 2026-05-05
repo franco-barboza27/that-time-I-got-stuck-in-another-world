@@ -149,18 +149,18 @@ def gameloop(player, blocks):
         if event.type == pygame.QUIT:
             running = False
 
-    for plat in platforms:
-        plat.x -= AUTO_SCROLL_SPEED
+    for block in blocks:
+        block.x -= AUTO_SCROLL_SPEED
 
-    platforms = player.move(platforms)
+    blocks = player.move(blocks)
     
-    if platforms[-1].x < SCREEN_WIDTH:
-        platforms += spawn_platforms(platforms[-1].x, 5)
+    if blocks[-1].x < SCREEN_WIDTH:
+        blocks += spawn_platforms(blocks[-1].x, 5)
 
-    platforms = [p for p in platforms if p.right > -100]
+    blocks = [p for p in blocks if p.right > -100]
 
     screen.fill(SKY_BLUE)
-    for plat in platforms:
+    for plat in blocks:
         pygame.draw.rect(screen, PLATFORM_COLOR, plat)
     player.draw()
 
