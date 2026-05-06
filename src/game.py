@@ -114,33 +114,14 @@ class Player:
 
         if keys[pygame.K_r]:
             # Reset player state
-            self.rect = pygame.Rect(100, 300, 40, 40)
-            self.vel_y = 0
-            self.on_ground = False
-
-            # Reset platforms to starting state and return the new list
-            platforms = [pygame.Rect(0, 550, 800, 50)]
-            platforms += spawn_platforms(400, 10)
-    
-            # stop further movement processing this frame
-            return platforms    
+            pygame.quit() 
 
         return platforms
     
     def draw(self):
         pygame.draw.rect(screen, PLAYER_COLOR, self.rect)
 
-def spawn_platforms(start_x, count):
-    new_plats = []
-    current_x = start_x
-    for _ in range(count):
-        width = random.randint(100, 250)
-        current_x += random.randint(150, 300)
-        y = random.randint(250, 750)
-        new_plats.append(pygame.Rect(current_x, y, width, 20))
-    return new_plats
-
-def gameloop(player, platforms):
+def gameloop(player, blocks):
     clock.tick(FPS)
 
     for event in pygame.event.get():
@@ -152,9 +133,6 @@ def gameloop(player, platforms):
         block.x -= AUTO_SCROLL_SPEED
 
     blocks = player.move(blocks)
-    
-    if blocks[-1].x < SCREEN_WIDTH:
-        blocks += spawn_platforms(blocks[-1].x, 5)
 
     blocks = [p for p in blocks if p.right > -100]
 
@@ -164,4 +142,4 @@ def gameloop(player, platforms):
     player.draw()
 
     pygame.display.update()
-    return platforms
+    return blocks

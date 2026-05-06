@@ -25,10 +25,12 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("That Time I Got Stuck In Another World With No Way Back Home And Had To Use Magical Movement Abilities To Get Warped Back!")
 clock = pygame.time.Clock()
 
-player = Player()
+def loop(map):
+    player = Player()
+    bird = pygame.Rect((1000, 1000, 50, 50))
 
-bird = pygame.Rect((1000, 1000, 50, 50))
+    running = True
+    while running:
+        gameloop(player, [bird, ])
 
-running = True
-while running:
-    gameloop(player, [bird, ])
+loop("docs\levelone.csv")
