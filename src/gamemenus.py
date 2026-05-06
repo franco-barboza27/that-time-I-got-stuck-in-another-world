@@ -5,10 +5,14 @@ import pygame
 import sys
 import csv
 
+# constants
 WHITE = (255,255,255)
 LIGHT = (170,170,170)
 DARK = (100,100,100)
 BG = (192,192,192)
+
+#bg_image = pygame.image.load("menu_bg_placeholder.png").convert()
+#bg_image = pygame.transform.scale(bg_image, (800,600))
 
 # setup pygame
 pygame.init()
@@ -18,17 +22,24 @@ font = pygame.font.SysFont("helvetica", 40)
 small_font = pygame.font.SysFont("helvetica", 25)
 title_font = pygame.font.SysFont("helvetica", 80)
 
+
+# helper functions
+# create button
+def create_button(screen, mouse, font_type, text, left, top, width, height, text_width, text_height):
+    button_text = font_type.render(text, True, WHITE)
+    button = pygame.Rect(left, top, width, height)
+    button_rect = pygame.draw.rect(screen, LIGHT if button.collidepoint(mouse) else DARK, button, border_radius=10)
+    screen.blit(button_text, (text_width, text_height))
+
+    return button_rect
+
 # saves menu:
 # delete save
-def delete_save():
-    # ask user if they are are sure saved as choice
-    choice = None
-    if choice == "Yes":
-        # clear the selected save's CSV data (Franco)
-        pass
-    if choice == "No":
-        # exit func
-        pass
+def delete_save(screen, mouse, font):
+    def create_delete_button():
+        delete_button = create_button(screen, mouse, font, "Delete Save", 150, 150, 240, 75, 135, 165)
+        return delete_button
+    create_delete_button()
 
 # exit game
 """def exit_game():
@@ -50,41 +61,18 @@ def create_new_save():
 
 # display saves menu
 def display_saves_menu(screen):
- while True:
+    while True:
         screen.fill(BG)
         mouse = pygame.mouse.get_pos()
 
         saves_menu_text = title_font.render("Save Menu", True, WHITE)
-
-        save_one_text = font.render("Save 1", True, WHITE)
-        save_two_text = font.render("Save 2", True, WHITE)
-        save_three_text = font.render("Save 3", True, WHITE)
-
-        save_one_button = pygame.Rect(75, 150, 240, 75)
-        save_two_button = pygame.Rect(75, 250, 240, 75)
-        save_three_button = pygame.Rect(75, 350, 240, 75)
-
-        quit_text = small_font.render("Quit", True, WHITE)
-
-        quit_button = pygame.Rect(75, 500, 100, 50)
-
-        pygame.draw.rect(screen, LIGHT if save_one_button.collidepoint(mouse) else DARK,save_one_button, border_radius=10)
-        pygame.draw.rect(screen, LIGHT if save_two_button.collidepoint(mouse) else DARK, save_two_button, border_radius=10)
-        pygame.draw.rect(screen, LIGHT if save_three_button.collidepoint(mouse) else DARK, save_three_button, border_radius=10)
-
-        pygame.draw.rect(screen, LIGHT if quit_button.collidepoint(mouse) else DARK, quit_button, border_radius=10)
-
         screen.blit(saves_menu_text, (215, 20))
-        screen.blit(save_one_text, (135, 165))
-        screen.blit(save_two_text, (135, 265))
-        screen.blit(save_three_text, (135, 365))
-        screen.blit(quit_text, (100, 510))
 
-        def spawn_delete_button():
-            delete_save_button = pygame.Rect(100, 100, 300, 300)
-            delete_save_text = font.render("Delete Save", True, WHITE)
-            pygame.draw.rect(screen, LIGHT if delete_save_button.collidepoint(mouse) else DARK, delete_save_button, border_radius=10)
-            screen.blit(delete_save_text, (300, 300))
+        save_one_button = create_button(screen, mouse, font, "Save 1", 75, 150, 240, 75, 135, 165)
+        save_two_button = create_button(screen, mouse, font, "Save 2", 75, 250, 240, 75, 135, 265)
+        save_three_button = create_button(screen, mouse, font, "Save 3", 75, 350, 240, 75, 135, 365)
+
+        quit_button = create_button(screen, mouse, small_font, "Quit", 75, 500, 100, 50, 100, 510)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -95,8 +83,11 @@ def display_saves_menu(screen):
                 if save_one_button.collidepoint(mouse):
                     save_selected = "Save One"
                     print(f"Save 1 Button Clicked\nSave Selected: {save_selected}")
-                    
-                    spawn_delete_button()
+    
+                    delete_button = create_button(screen, mouse, font, "Delete Save", 75, 450, 240, 75, 135, 465)
+
+                    if delete_button.collidepoint(mouse):
+                        pass
                     
                 elif save_two_button.collidepoint(mouse):
                     save_selected = "Save Two"
@@ -121,9 +112,8 @@ def level_select():
     pass
 
 # display map menu
-def display_map_menu():
+def display_map_menu(screen):
     pass
-
 
 # ability menu:
 # ability select
