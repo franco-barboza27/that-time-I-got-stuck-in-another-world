@@ -19,6 +19,7 @@ pygame.init()
 SCREEN = pygame.display.set_mode((800, 600))
 
 font = pygame.font.SysFont("helvetica", 40)
+smaller_font = pygame.font.SysFont("helvetica", 20)
 small_font = pygame.font.SysFont("helvetica", 25)
 title_font = pygame.font.SysFont("helvetica", 80)
 
@@ -36,10 +37,8 @@ def create_button(screen, mouse, font_type, text, left, top, width, height, text
 # saves menu:
 # delete save
 def delete_save(screen, mouse, font):
-    def create_delete_button():
-        delete_button = create_button(screen, mouse, font, "Delete Save", 150, 150, 240, 75, 135, 165)
-        return delete_button
-    create_delete_button()
+    create_button(screen, mouse, font, "Delete Save", 75, 450, 240, 75, 135, 465)
+    display_saves_menu(screen)
 
 # exit game
 """def exit_game():
@@ -59,9 +58,28 @@ def editing_save():
 def create_new_save():
     pass
 
+def test_screen(screen):
+    while True:
+        screen.fill(BG)
+        display_saves_menu(screen)
+        mouse = pygame.mouse.get_pos()
+
+        test_text = title_font.render("TEST", True, WHITE)
+        screen.blit(test_text, (215, 20))
+           
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        pygame.display.update()
+
+
 # display saves menu
 def display_saves_menu(screen):
-    while True:
+    displaying_saves_menu = True
+    show_delete_button = False
+    while displaying_saves_menu:
         screen.fill(BG)
         mouse = pygame.mouse.get_pos()
 
@@ -82,24 +100,36 @@ def display_saves_menu(screen):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if save_one_button.collidepoint(mouse):
                     save_selected = "Save One"
+                    delete_button_location = 165.5
+                    delete_text_location = 177.5
                     print(f"Save 1 Button Clicked\nSave Selected: {save_selected}")
-    
-                    delete_button = create_button(screen, mouse, font, "Delete Save", 75, 450, 240, 75, 135, 465)
-
-                    if delete_button.collidepoint(mouse):
-                        pass
+                    show_delete_button = True
                     
                 elif save_two_button.collidepoint(mouse):
                     save_selected = "Save Two"
+                    delete_button_location = 265.5
+                    delete_text_location = 277.5
                     print(f"Save 2 Button Clicked\nSave Selected: {save_selected}")
+                    show_delete_button = True
 
                 elif save_three_button.collidepoint(mouse):
                     save_selected = "Save Three"
+                    delete_button_location = 365.5
+                    delete_text_location = 377.5
                     print(f"Save 3 Button Clicked\nSave Selected: {save_selected}")
+                    show_delete_button = True
 
                 elif quit_button.collidepoint(mouse):
                     pygame.quit()
                     sys.exit()
+                
+                elif delete_button.collidepoint(mouse):
+                    print(f"Deleting {save_selected}")
+            
+        if show_delete_button == True:
+            delete_button = create_button(screen, mouse, smaller_font, "Play Save", 340, delete_button_location, 120, 50, 347.5, delete_text_location)
+            delete_button = create_button(screen, mouse, smaller_font, "Delete Save", 475, delete_button_location, 120, 50, 500, delete_text_location)
+            
 
 
         pygame.display.update()
