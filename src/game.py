@@ -39,7 +39,10 @@ class Player:
         dy = 0
         direction=True
         keys = pygame.key.get_pressed()       
-
+        def respawn():
+            self.rect = pygame.Rect(100, 300, 40, 40)
+            self.vel_y = 0
+            self.on_ground = False
         if (keys[pygame.K_LEFT] or keys[pygame.K_a]) and not self.dashing:
             dx -= PLAYER_SPEED
             direction=False
@@ -114,9 +117,7 @@ class Player:
 
         if keys[pygame.K_r]:
             # Reset player state
-            self.rect = pygame.Rect(100, 300, 40, 40)
-            self.vel_y = 0
-            self.on_ground = False
+            respawn()
 
             # Reset platforms to starting state and return the new list
             platforms = [pygame.Rect(0, 550, 800, 50)]
