@@ -8,8 +8,19 @@ def levelload(savepath):
     basepath = pathlib.Path(__file__).resolve().parent
     filepath = basepath.parent / 'docs' / savepath
 
-    blocks = pd.read_csv(filepath)
+    listblock = []
+    rowamount = len(pd.read_csv(filepath))
+
+    for i in range(rowamount):
+        block = pd.read_csv(filepath, skiprows=lambda x: i != x)
+
+        listblock.append([block])
+
+
+    
+    for block in listblock:
+        print(block)
 
     
 
-    return blocks
+levelload('levelone.csv')

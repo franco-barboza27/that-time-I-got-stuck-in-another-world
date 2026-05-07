@@ -1,5 +1,6 @@
 import pygame
 import random
+from saveload import *
 from game import *
 from obstacles import *
 pygame.init()
@@ -27,6 +28,7 @@ clock = pygame.time.Clock()
 
 def loop(map):
     player = Player()
+    #map load
     bird = pygame.Rect((1000, 1000, 50, 50))
 
     running = True
