@@ -28,11 +28,16 @@ clock = pygame.time.Clock()
 
 def loop(map):
     player = Player()
-    #map load
-    bird = pygame.Rect((1000, 1000, 50, 50))
+    blocks = []
+    for block in map:
+        print(block[0],block[1],block[2],block[3])
+        currblock = pygame.Rect(int(block[0]),int(block[1]),int(block[2]),int(block[3]))
+        blocks.append(currblock)
 
     running = True
     while running:
-        gameloop(player, [bird, ])
+        gameloop(player,blocks)
 
-loop("docs\levelone.csv")
+map = levelload("levelone.csv")
+
+loop(map)

@@ -11,16 +11,9 @@ def levelload(savepath):
     listblock = []
     rowamount = len(pd.read_csv(filepath))
 
-    for i in range(rowamount):
-        block = pd.read_csv(filepath, skiprows=lambda x: i != x)
+    for i in range(1, rowamount):
+        block = pd.read_csv(filepath, skiprows=lambda x: i != x, dtype={'col1':int, 'col2':int, 'col3':int, 'col4':int, 'col5':str, 'col6':int})
 
-        listblock.append([block])
-
-
+        listblock.append(block.columns.to_list())
     
-    for block in listblock:
-        print(block)
-
-    
-
-levelload('levelone.csv')
+    return listblock
