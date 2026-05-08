@@ -1,5 +1,6 @@
 import pygame
 import random
+from helpers import *
 from saveload import *
 from game import *
 from obstacles import *
@@ -30,7 +31,7 @@ def loop(map):
     player = Player()
     blocks = []
     for block in map:
-        print(block[0],block[1],block[2],block[3])
+        block = floatandround(block)
         currblock = pygame.Rect(int(block[0]),int(block[1]),int(block[2]),int(block[3]))
         blocks.append(currblock)
 
