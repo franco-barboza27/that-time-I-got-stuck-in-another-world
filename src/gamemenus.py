@@ -12,17 +12,25 @@ LIGHT = (170,170,170)
 DARK = (100,100,100)
 BG = (192,192,192)
 
+# abilities
+double_jump = True
+dash = False
+wall_climb = False
+
 #bg_image = pygame.image.load("menu_bg_placeholder.png").convert()
 #bg_image = pygame.transform.scale(bg_image, (800,600))
 
 # setup pygame
 pygame.init()
-SCREEN = pygame.display.set_mode((800, 600))
+SCREEN_WIDTH = 2560
+SCREEN_HEIGHT = 1395
+SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-font = pygame.font.SysFont("helvetica", 40)
+font = pygame.font.SysFont("helvetica", 80)
+slighty_smaller_font = pygame.font.SysFont("helvetica", 35)
 smaller_font = pygame.font.SysFont("helvetica", 20)
-small_font = pygame.font.SysFont("helvetica", 25)
-title_font = pygame.font.SysFont("helvetica", 80)
+small_font = pygame.font.SysFont("helvetica", 40)
+title_font = pygame.font.SysFont("helvetica", 160)
 
 
 # helper functions
@@ -86,6 +94,7 @@ def display_saves_menu(screen):
                     edit_button_location = 365.5
                     edit_text_location = 377.5
                     print(f"Save 3 Button Clicked\nSave Selected: {save_selected}")
+
                     show_edit_buttons = True
 
                 elif quit_button.collidepoint(mouse):
@@ -119,13 +128,13 @@ def display_saves_menu(screen):
         if show_display_saves_menu == True:
             screen.fill(BG)
             saves_menu_text = title_font.render("Save Menu", True, WHITE)
-            screen.blit(saves_menu_text, (215, 20))
+            screen.blit(saves_menu_text, (925, 100))
 
-            save_one_button = create_button(screen, mouse, font, "Save 1", 75, 150, 240, 75, 135, 165)
-            save_two_button = create_button(screen, mouse, font, "Save 2", 75, 250, 240, 75, 135, 265)
-            save_three_button = create_button(screen, mouse, font, "Save 3", 75, 350, 240, 75, 135, 365)
+            save_one_button = create_button(screen, mouse, font, "Save 1", 145, 400, 700, 200, 367.5, 450)
+            save_two_button = create_button(screen, mouse, font, "Save 2", 145, 650, 700, 200, 367.5, 700)
+            save_three_button = create_button(screen, mouse, font, "Save 3", 145, 900, 700, 200, 367.5, 950)
 
-            quit_button = create_button(screen, mouse, small_font, "Quit", 75, 500, 100, 50, 100, 510)
+            quit_button = create_button(screen, mouse, small_font, "Quit", 100, 1250, 175, 75, 100, 1250)
 
         if show_edit_buttons == True:
             play_button = create_button(screen, mouse, smaller_font, "Play Save", 340, edit_button_location, 120, 50, 357.5, edit_text_location)
@@ -147,7 +156,7 @@ def display_saves_menu(screen):
         
         if show_playing_save == True:
             screen.fill(BG)
-            playing_save_text = title_font.render(f"Playing {save_selected}")
+            playing_save_text = title_font.render(f"Playing {save_selected}", True, WHITE)
             screen.blit(playing_save_text, (0, 0))
 
 
@@ -170,8 +179,70 @@ def ability_select():
     pass
 
 # display ability menu
-def display_ability_menu():
-    pass
+def display_ability_menu(screen):
+    show_ability_not_unlocked_yet = False
+    show_display_ability_menu = True
+
+    while True:
+        mouse = pygame.mouse.get_pos()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if double_jump_button.collidepoint(mouse):
+                    ability_selected = "Double Jump"
+                    print(f"Double Jump Button Clicked\nSave Selected: {ability_selected}")
+
+                    if double_jump == False:
+                        show_ability_not_unlocked_yet = True
+                    elif double_jump == True:
+                        print("Go to Skin Menu Here")
+                    
+                elif dash_button.collidepoint(mouse):
+                    ability_selected = "Dash"
+                    print(f"Dash Button Clicked\nSave Selected: {ability_selected}")
+
+                    if dash == False:
+                        show_ability_not_unlocked_yet = True
+                    elif dash == True:
+                        print("Go to Skin Menu Here")
+
+                elif wall_climb_button.collidepoint(mouse):
+                    ability_selected = "Wall Climb"
+                    print(f"Wall Climb Button Clicked\nSave Selected: {ability_selected}")
+
+                    if wall_climb == False:
+                        show_ability_not_unlocked_yet = True
+                    elif wall_climb == True:
+                        print("Go to Skin Menu Here")
+
+                elif quit_button.collidepoint(mouse):
+                    pygame.quit()
+                    sys.exit()
+
+            
+        if show_display_ability_menu == True:
+            screen.fill(BG)
+            saves_menu_text = title_font.render("Abilities Menu", True, WHITE)
+            screen.blit(saves_menu_text, (160, 20))
+
+            double_jump_button = create_button(screen, mouse, slighty_smaller_font, "Double Jump", 40, 200, 225, 100, 50, 225)
+            dash_button = create_button(screen, mouse, font, "Dash", 290, 200, 225, 100, 357.5, 225)
+            wall_climb_button = create_button(screen, mouse, font, "Wall Climb", 540, 200, 225, 100, 557.5, 225)
+
+            quit_button = create_button(screen, mouse, small_font, "Quit", 75, 500, 100, 50, 100, 510)
+
+        if show_ability_not_unlocked_yet == True:
+            abilty_not_unlocked_text = font.render(f"{ability_selected} is not unlocked yet!", True, WHITE)
+            screen.blit(abilty_not_unlocked_text, (500,500))
+
+
+        pygame.display.update()
+
+
+#display_ability_menu(SCREEN)
 
 
 # character menu:
