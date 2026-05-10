@@ -2,7 +2,13 @@ import pandas as pd
 import pathlib
 
 def load(savepath):
-    pd.read_csv(savepath)
+    basepath = pathlib.Path(__file__).resolve().parent
+    filepath = basepath.parent / 'docs' / savepath
+
+    playervalues = []
+    # 1, False, False, False, False, True, False
+    block = pd.read_csv(filepath, skiprows=lambda x: 0==x, dtype={'col1':int, 'col1':bool, 'col1':bool, 'col1':bool, 'col1':bool, 'col1':bool, 'col1':bool})
+    print(block)
 
 def levelload(savepath):
     basepath = pathlib.Path(__file__).resolve().parent
@@ -17,3 +23,5 @@ def levelload(savepath):
         listblock.append(block.columns.to_list())
     
     return listblock
+
+load("docs/saveone.csv")
