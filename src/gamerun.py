@@ -32,7 +32,8 @@ def loop(map):
     blocks = []
     for block in map:
         block = floatandround(block)
-        currblock = pygame.Rect(int(block[0]),int(block[1]),int(block[2]),int(block[3]))
+        print(block)
+        currblock = obstacle([int(block[0]),int(block[1]),int(block[2]),int(block[3])])
         blocks.append(currblock)
 
     running = True

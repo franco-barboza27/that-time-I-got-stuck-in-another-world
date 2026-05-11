@@ -18,7 +18,10 @@ def load(savepath):
             try:
                 info = bool(info)
             except:
-                pass
+                try:
+                    info=str(info)
+                except:
+                    pass
             
         data.append(info)
     
