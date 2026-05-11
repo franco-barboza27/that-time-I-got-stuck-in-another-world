@@ -1,12 +1,12 @@
-blockx, blocky, xsize, ysize, block type/hazard, scale
-0, 698, 250, 100, block, 1
-150, 698, 100, 100, sign, 1
-125, 698, 75, 50, sign, 1
-75, 689, 25, 25, block, 1
-325, 689, 50, 50, block, 1
-450, 689, 250, 50, block, 1
-1000, 698, 100, 50, block, 1
-1280, 698, 10000, 50, block, 1
-1450, 698, 100, 50, block, 1
-1550, 698, 100, 50, block, 1
-1700, 698, 100, 50, block, 1
+blockx,blocky,xsize,ysize,blocktype/hazard,scale,sprite
+0,698,250,100,block,1,
+150,698,100,100,sign,1,
+125,698,75,50,sign,1,
+75,689,25,25,block,1,
+325,689,50,50,block,1,
+450,689,250,50,block,1,
+1000,698,100,50,block,1,
+1280,698,10000,50,block,1,
+1450,698,100,50,block,1,
+1550,698,100,50,block,1,
+1700,698,100,50,block,1,
