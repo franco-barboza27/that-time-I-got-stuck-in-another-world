@@ -7,15 +7,20 @@ import pygame
         spawndist = spawndist
         coords = coords"""
     
-class block():
-    def __init__(self, rectangle, sprite, type):
+class obstacle():
+    def __init__(self, rectangle, type, scale, sprite):
         self.rectangle = pygame.Rect(rectangle[0], rectangle[1], rectangle[2], rectangle[3])
         self.sprite = sprite
         self.type = type
     
     def mover(self, x, y):
         self.rectangle.move_ip(x, y)
-        
+
+    def spriteload(self):
+        thissprite = pygame.image.load(self.sprite)
+        thissprite.transform(thissprite, (self.rectangle[2]*50, self.rectangle[3]*50))
+        thissprite.blit(thissprite, (self.rectangle[0], self.rectangle[1]))
+
     def birdmovement(self, player, screen):
         #if player.state=="air" and bird.danger=="bird":
 
