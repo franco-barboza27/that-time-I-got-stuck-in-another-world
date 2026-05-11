@@ -3,7 +3,6 @@
 # libraries
 import pygame
 import sys
-import time
 import csv
 
 # constants
@@ -17,22 +16,28 @@ double_jump = True
 dash = False
 wall_climb = False
 
+# characters
+character_one = True
+character_two = False
+character_three = False
+
 # save
 save_selected = ""
 
-
 # setup pygame
 pygame.init()
+
+# screen dimensions
 SCREEN_WIDTH = 2560
 SCREEN_HEIGHT = 1395
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+# background loader
 bg_image = pygame.image.load("docs/menu_bg_placeholder.png").convert()
 bg_image = pygame.transform.scale(bg_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
+# setup fonts
 font = pygame.font.SysFont("helvetica", 80)
-slighty_smaller_font = pygame.font.SysFont("helvetica", 35)
-smaller_font = pygame.font.SysFont("helvetica", 20)
 small_font = pygame.font.SysFont("helvetica", 40)
 title_font = pygame.font.SysFont("helvetica", 160)
 
@@ -89,8 +94,7 @@ def display_saves_menu(screen):
                     show_edit_buttons = True
 
                 elif quit_button and quit_button.collidepoint(mouse):
-                    pygame.quit()
-                    sys.exit()
+                    return "quit"
 
                 elif delete_button and delete_button.collidepoint(mouse):
                     print(f"Deleting {save_selected}")
@@ -163,13 +167,10 @@ def display_saves_menu(screen):
 
         pygame.display.update()
 
-#display_saves_menu(SCREEN)
-
 
 # display ability menu
 def display_ability_menu(screen):
     show_ability_not_unlocked_yet = False
-    show_skin_placeholder = False
     show_display_ability_menu = True
 
     ability_selected = ""
@@ -188,37 +189,42 @@ def display_ability_menu(screen):
 
                 if double_jump_button and double_jump_button.collidepoint(mouse):
                     ability_selected = "Double Jump"
-                    print(f"Double Jump Button Clicked\nAbility Selected: {ability_selected}")
 
                     if double_jump == False:
+                        print(f"{ability_selected} not unlocked!")
                         show_ability_not_unlocked_yet = True
                     elif double_jump == True:
-                        print("Go to Skin Menu Here")
-                        show_skin_placeholder = True
+                        if ability_selected != "":
+                            ability_selected = "Double Jump"
+                            print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
+                            return "open_character_menu"
 
                 elif dash_button and dash_button.collidepoint(mouse):
                     ability_selected = "Dash"
-                    print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
 
                     if dash == False:
+                        print(f"{ability_selected} not unlocked!")
                         show_ability_not_unlocked_yet = True
                     elif dash == True:
-                        print("Go to Skin Menu Here")
-                        show_skin_placeholder = True
+                        if ability_selected != "":
+                            ability_selected = "Dash"
+                            print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
+                            return "open_character_menu"
 
                 elif wall_climb_button and wall_climb_button.collidepoint(mouse):
                     ability_selected = "Wall Climb"
-                    print(f"Wall Climb Button Clicked\nAbility Selected: {ability_selected}")
 
                     if wall_climb == False:
+                        print(f"{ability_selected} not unlocked!")
                         show_ability_not_unlocked_yet = True
                     elif wall_climb == True:
-                        print("Go to Skin Menu Here")
-                        show_skin_placeholder = True
+                        if ability_selected != "":
+                            ability_selected = "Wall Climb"
+                            print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
+                            return "open_character_menu"
 
                 elif go_back_button and go_back_button.collidepoint(mouse):
                     show_ability_not_unlocked_yet = False
-                    show_skin_placeholder = False
                     show_display_ability_menu = True
 
                 elif go_back_to_saves_menu_button and go_back_to_saves_menu_button.collidepoint(mouse):
@@ -245,28 +251,114 @@ def display_ability_menu(screen):
 
             go_back_button = create_button(screen, mouse, small_font,"Go Back", 1127.5, 400, 175, 75, 1140, 410)
 
-        if show_skin_placeholder == True:
+        pygame.display.update()
+
+
+def display_character_menu(screen):
+    show_character_not_unlocked_yet = False
+    show_play_placeholder = False
+    show_display_character_menu = True
+
+    character_selected = ""
+
+    character_one_button = character_two_button = character_three_button = go_back_to_saves_menu_button = go_back_button = None
+
+    while True:
+        mouse = pygame.mouse.get_pos()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+
+                if character_one_button and character_one_button.collidepoint(mouse):
+                    character_selected = "Character 1"
+                    print(f"Character 2 Button Clicked\nCharacter Selected: {character_selected}")
+
+                    if character_one == False:
+                        show_character_not_unlocked_yet = True
+                    elif character_one == True:
+                        print("Play game now")
+                        show_play_placeholder = True
+
+                elif character_two_button and character_two.collidepoint(mouse):
+                    character_selected = "Character 2"
+                    print(f"Character 2 Clicked\nCharacter Selected: {character_selected}")
+
+                    if character_two == False:
+                        show_character_not_unlocked_yet = True
+                    elif character_two == True:
+                        print("Play game now")
+                        show_play_placeholder = True
+
+                elif character_three_button and character_three_button.collidepoint(mouse):
+                    character_selected = "Character 3"
+                    print(f"Wall Climb Button Clicked\nAbility Selected: {character_selected}")
+
+                    if character_three == False:
+                        show_character_not_unlocked_yet = True
+                    elif character_three == True:
+                        print("Play game now")
+                        show_play_placeholder = True
+
+                elif go_back_button and go_back_button.collidepoint(mouse):
+                    show_character_not_unlocked_yet = False
+                    show_play_placeholder = False
+                    show_display_character_menu = True
+
+                elif go_back_to_saves_menu_button and go_back_to_saves_menu_button.collidepoint(mouse):
+                    return "back_to_abilities_menu"
+
+        if show_display_character_menu == True:
+            screen.blit(bg_image, (0, 0))
+            
+            saves_menu_text = title_font.render("Character Menu", True, WHITE)
+            screen.blit(saves_menu_text, (725, 100))
+
+            character_one_button = create_button(screen, mouse, font,"Character 1", 145, 500, 700, 200, 285, 550)
+            character_two_button = create_button(screen, mouse, font, "Character 2", 900, 500, 700, 200, 1045, 550)
+            character_three_button = create_button(screen, mouse, font, "Character 3", 1650, 500, 700, 200, 1785, 550)
+            go_back_to_saves_menu_button = create_button(screen, mouse, small_font, "Go Back", 100, 1250, 200, 75, 130, 1265)
+
+        if show_character_not_unlocked_yet == True:
             screen.blit(bg_image, (0, 0))
 
-            playing_text = title_font.render(f"Selected {ability_selected}", True, WHITE)
+            confirm_text = font.render("Character not unlocked yet:", True, WHITE)
+            character_selected_show = font.render(f"{character_selected}", True, WHITE)
+            screen.blit(confirm_text, (800, 100))
+            screen.blit(character_selected_show, (1125, 200))
+
+            go_back_button = create_button(screen, mouse, small_font,"Go Back", 1127.5, 400, 175, 75, 1140, 410)
+
+        if show_play_placeholder == True:
+            screen.blit(bg_image, (0, 0))
+
+            playing_text = title_font.render(f"Selected {character_selected}", True, WHITE)
             screen.blit(playing_text, (0, 0))
 
         pygame.display.update()
 
 
-#display_ability_menu(SCREEN)
-
-def main():
+"""def main():
     while True:
         result = display_saves_menu(SCREEN)
 
         if result == "quit":
+            pygame.quit()
+            sys.exit()
             break
-
         if result == "open_ability_menu":
-            back = display_ability_menu(SCREEN)
+            result = display_ability_menu(SCREEN)
 
             if back == "back_to_saves_menu":
+                continue
+
+        if result =="open_character_menu":
+            back = display_character_menu(SCREEN)
+
+            if back == "back_to_abilities_menu":
                 continue
 
     pygame.quit()
@@ -274,4 +366,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main()"""
