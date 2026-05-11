@@ -3,7 +3,6 @@
 # libraries
 import pygame
 import sys
-import time
 import csv
 
 # constants
@@ -95,8 +94,7 @@ def display_saves_menu(screen):
                     show_edit_buttons = True
 
                 elif quit_button and quit_button.collidepoint(mouse):
-                    pygame.quit()
-                    sys.exit()
+                    return "quit"
 
                 elif delete_button and delete_button.collidepoint(mouse):
                     print(f"Deleting {save_selected}")
@@ -191,35 +189,38 @@ def display_ability_menu(screen):
 
                 if double_jump_button and double_jump_button.collidepoint(mouse):
                     ability_selected = "Double Jump"
-                    print(f"Double Jump Button Clicked\nAbility Selected: {ability_selected}")
 
                     if double_jump == False:
+                        print(f"{ability_selected} not unlocked!")
                         show_ability_not_unlocked_yet = True
                     elif double_jump == True:
                         if ability_selected != "":
-                            print(f"Playing {ability_selected}")
+                            ability_selected = "Double Jump"
+                            print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
                             return "open_character_menu"
 
                 elif dash_button and dash_button.collidepoint(mouse):
                     ability_selected = "Dash"
-                    print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
 
                     if dash == False:
+                        print(f"{ability_selected} not unlocked!")
                         show_ability_not_unlocked_yet = True
                     elif dash == True:
                         if ability_selected != "":
-                            print(f"Playing {ability_selected}")
+                            ability_selected = "Dash"
+                            print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
                             return "open_character_menu"
 
                 elif wall_climb_button and wall_climb_button.collidepoint(mouse):
                     ability_selected = "Wall Climb"
-                    print(f"Wall Climb Button Clicked\nAbility Selected: {ability_selected}")
 
                     if wall_climb == False:
+                        print(f"{ability_selected} not unlocked!")
                         show_ability_not_unlocked_yet = True
                     elif wall_climb == True:
                         if ability_selected != "":
-                            print(f"Playing {ability_selected}")
+                            ability_selected = "Wall Climb"
+                            print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
                             return "open_character_menu"
 
                 elif go_back_button and go_back_button.collidepoint(mouse):
@@ -274,7 +275,7 @@ def display_character_menu(screen):
 
                 if character_one_button and character_one_button.collidepoint(mouse):
                     character_selected = "Character 1"
-                    print(f"Character 2 Button Clicked\Character Selected: {character_selected}")
+                    print(f"Character 2 Button Clicked\nCharacter Selected: {character_selected}")
 
                     if character_one == False:
                         show_character_not_unlocked_yet = True
@@ -284,7 +285,7 @@ def display_character_menu(screen):
 
                 elif character_two_button and character_two.collidepoint(mouse):
                     character_selected = "Character 2"
-                    print(f"Character 2 Clicked\Character Selected: {character_selected}")
+                    print(f"Character 2 Clicked\nCharacter Selected: {character_selected}")
 
                     if character_two == False:
                         show_character_not_unlocked_yet = True
@@ -339,16 +340,17 @@ def display_character_menu(screen):
 
         pygame.display.update()
 
-display_character_menu(SCREEN)
 
 """def main():
     while True:
         result = display_saves_menu(SCREEN)
 
         if result == "quit":
+            pygame.quit()
+            sys.exit()
             break
         if result == "open_ability_menu":
-            back = display_ability_menu(SCREEN)
+            result = display_ability_menu(SCREEN)
 
             if back == "back_to_saves_menu":
                 continue

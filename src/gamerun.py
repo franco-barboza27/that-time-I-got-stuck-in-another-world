@@ -41,4 +41,4 @@ def loop(map):
 
 map = levelload("levelone.csv")
 
-loop(map)
+# loop(map)
