@@ -38,5 +38,3 @@ def levelload(savepath):
         listblock.append(block.columns.to_list())
     
     return listblock
-
-print(f"{type(load('saveone.csv')[0])}, {type(load('saveone.csv')[1])}, {type(load('saveone.csv')[2])}, {type(load('saveone.csv')[3])}, {type(load('saveone.csv')[4])}, {type(load('saveone.csv')[5])}, {type(load('saveone.csv')[6])}")
