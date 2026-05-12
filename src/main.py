@@ -7,7 +7,7 @@ def main():
 
     while True:
         if current_menu == "saves":
-            result = display_saves_menu(SCREEN)
+            result, data = display_saves_menu(SCREEN)
 
             if result == "quit":
                 pygame.quit()
@@ -17,7 +17,7 @@ def main():
                 current_menu = "abilities"
 
         elif current_menu == "abilities":
-            result = display_ability_menu(SCREEN)
+            result, ability = display_ability_menu(SCREEN, data)
 
             if result == "back_to_saves_menu":
                 current_menu = "saves"
@@ -26,13 +26,13 @@ def main():
                 current_menu = "characters"
 
         elif current_menu == "characters":
-            result = display_character_menu(SCREEN)
+            result, charsprite = display_character_menu(SCREEN, data)
 
             if result == "back_to_abilities_menu":
                 current_menu = "abilities"
 
             elif result == "start_game":
-                loop(map)
+                loop(map, charsprite, ability)
                 current_menu = "saves"
 
     pygame.quit()

@@ -27,7 +27,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("That Time I Got Stuck In Another World With No Way Back Home And Had To Use Magical Movement Abilities To Get Warped Back!")
 clock = pygame.time.Clock()
 
-def loop(map):
+def loop(map, charsprite, ability):
     player = Player()
     blocks = []
     for block in map:
@@ -39,5 +39,3 @@ def loop(map):
     running = True
     while running:
         gameloop(player,blocks)
-
-map = levelload("levelone.csv")
