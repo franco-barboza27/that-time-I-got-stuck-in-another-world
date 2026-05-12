@@ -16,8 +16,6 @@ def main():
             elif result == "open_ability_menu":
                 current_menu = "abilities"
 
-
-        # ABILITY MENU
         elif current_menu == "abilities":
             result = display_ability_menu(SCREEN)
 
