@@ -15,11 +15,15 @@ It's a platformer where a kid from our world is pulled into the world of another
 - Custom made Save Menu, Ability Menu, and Character Menu 🏠
 - Save slots ⬇️
 - Character customization 🧑
-- Ability Selection 🧙
+- Ability selection 🧙
 - Three different levels. ⛰️
-    - Level one is in a grassy area, level two is a cave, level three is a fiery zone. 🌳🗻🔥
+    - Level 1 is in a grassy area 🌳
+    - Level 2 is a cave 🗻
+    - Level 3 is a fiery zone 🔥
 - ⚠️Hazards are placed throughout the maps.⚠️
-    - Spikes🔺, lava and fire🔥, and a fiery bird🐦‍🔥 are all trying to kill you! 😱
+    - Spikes🔺
+    - Lava & Fire🔥
+    - Fiery Bird🐦‍🔥
 - We use sprites so entities have skins and custom appearances.😊
 
 ## Installation Instructions
@@ -27,7 +31,7 @@ It's a platformer where a kid from our world is pulled into the world of another
 2. 'pip install pandas' in terminal
 
 ## Contributors
-- Gummy 
+- franco-barboza27 
 - arshsc
 - HunterWildClaw
 
