@@ -6,23 +6,33 @@ It's a platformer where a kid from our world is pulled into the world of another
 
 ## Steps for Use
 ***
-1. Just run the project. Everything else is handled!
-2. You'll need to install pygame, and pandas.
+1. Run project through main
+2. Select save file you would like to use
+3. Select ability you would like to use
+4. select character you would like to use
+5. Play the game!
 
 ## List of KEY features
 ***
+- Custom made Save Menu, Ability Menu, and Character Menu 🏠
+- Save slots ⬇️
+- Character customization 🧑
+- Ability Selection 🧙
 - Three different levels. ⛰️
     - Level one is in a grassy area, level two is a cave, level three is a fiery zone. 🌳🗻🔥
 - ⚠️Hazards are placed throughout the maps.⚠️
-    - Spikes🔺lava and fire🔥and a fiery bird🐦‍🔥are all trying to kill you!😱
+    - Spikes🔺, lava and fire🔥, and a fiery bird🐦‍🔥 are all trying to kill you! 😱
 - We use sprites so entities have skins and custom appearances.😊
 
 ## Installation Instructions
 ***
-Not applicable for this project. Just go to main and push the run code button 👍
+1. 'pip install pygame' in terminal
+2. 'pip install pandas' in terminal
 
 ## Contributors
-- Gummy, arshsc, and HunterWildClaw are all of the contributors to this project.
+- Gummy 
+- arshsc
+- HunterWildClaw
 
 ## Licence information
 - UCAS School 

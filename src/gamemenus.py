@@ -4,7 +4,10 @@
 import pygame
 from saveload import *
 import sys
-import csv
+import pathlib
+import pandas
+
+
 
 # constants
 WHITE = (255,255,255)
@@ -75,30 +78,24 @@ def display_saves_menu(screen):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if save_one_button and save_one_button.collidepoint(mouse):
                     save_selected = "Save 1"
-                    savepath = "docs/saveone.csv"
                     edit_button_location = 450
                     edit_text_location = 475
                     print(f"Save 1 Button Clicked\nSave Selected: {save_selected}")
-                    savedata = load(savepath)
                     show_edit_buttons = True
 
                 elif save_two_button and save_two_button.collidepoint(mouse):
                     save_selected = "Save 2"
-                    savepath = "docs/savetwo.csv"
                     edit_button_location = 700
                     edit_text_location = 725
                     print(f"Save 2 Button Clicked\nSave Selected: {save_selected}")
 
                     show_edit_buttons = True
-                    savedata = load(savepath)
                     
                 elif save_three_button and save_three_button.collidepoint(mouse):
                     save_selected = "Save 3"
-                    savepath = "docs/savethree.csv"
                     edit_button_location = 950
                     edit_text_location = 975
                     print(f"Save 3 Button Clicked\nSave Selected: {save_selected}")
-                    savedata = load(savepath)
                     show_edit_buttons = True
 
                 elif quit_button and quit_button.collidepoint(mouse):
@@ -111,6 +108,14 @@ def display_saves_menu(screen):
 
                 elif play_button and play_button.collidepoint(mouse):
                     if save_selected != "":
+                        if save_selected == "Save 1":
+                            savepath = "docs/saveone.csv"
+                        elif save_selected == "Save 2":
+                            savepath = "docs/savetwo.csv"
+                        elif save_selected == "Save 3":
+                            savepath = "docs/savethree.csv"
+
+                        savedata = load(savepath)
                         print(f"Playing {save_selected}")
                         return "open_ability_menu"
 
@@ -204,6 +209,7 @@ def display_ability_menu(screen, savedata):
                     elif double_jump == True:
                         if ability_selected != "":
                             ability_selected = "Double Jump"
+                            ability_selected_text_location = 1100
                             print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
                             return "open_character_menu"
 
@@ -216,7 +222,7 @@ def display_ability_menu(screen, savedata):
                     elif dash == True:
                         if ability_selected != "":
                             ability_selected = "Dash"
-                            show_ability_not_unlocked_yet = False
+                            ability_selected_text_location = 1100
                             print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
                             return "open_character_menu"
 
@@ -229,6 +235,7 @@ def display_ability_menu(screen, savedata):
                     elif wall_climb == True:
                         if ability_selected != "":
                             ability_selected = "Wall Climb"
+                            ability_selected_text_location = 1100
                             print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
                             return "open_character_menu"
 
@@ -256,7 +263,7 @@ def display_ability_menu(screen, savedata):
             confirm_text = font.render("Ability not unlocked yet:", True, WHITE)
             ability_selected_show = font.render(f"{ability_selected}", True, WHITE)
             screen.blit(confirm_text, (800, 100))
-            screen.blit(ability_selected_show, (1125, 200))
+            screen.blit(ability_selected_show, (ability_selected_text_location, 200))
 
             go_back_button = create_button(screen, mouse, small_font,"Go Back", 1127.5, 400, 175, 75, 1140, 410)
 
@@ -350,7 +357,7 @@ def display_character_menu(screen):
         pygame.display.update()
 
 
-"""def main():
+def main():
 
     current_menu = "saves"
 
@@ -384,4 +391,4 @@ def display_character_menu(screen):
     sys.exit()
 
 if __name__ == "__main__":
-    main()"""
+    main()
