@@ -6,12 +6,14 @@ def floatandround(values):
             newlist.append(newitem)
         except:
             try:
-                info = bool(info)
-                newlist.append(newitem)
+                info=str(item)
+                newlist.append(info)
             except:
                 try:
-                    info=str(info)
+                    newitem = bool(newitem)
                     newlist.append(newitem)
                 except:
                     pass
+
+    print(newlist)
     return newlist

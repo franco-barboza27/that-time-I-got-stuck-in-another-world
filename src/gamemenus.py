@@ -2,6 +2,7 @@
 
 # libraries
 import pygame
+from saveload import *
 import sys
 import csv
 
@@ -74,23 +75,30 @@ def display_saves_menu(screen):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if save_one_button and save_one_button.collidepoint(mouse):
                     save_selected = "Save 1"
+                    savepath = "docs/saveone.csv"
                     edit_button_location = 450
                     edit_text_location = 475
                     print(f"Save 1 Button Clicked\nSave Selected: {save_selected}")
+                    savedata = load(savepath)
                     show_edit_buttons = True
 
                 elif save_two_button and save_two_button.collidepoint(mouse):
                     save_selected = "Save 2"
+                    savepath = "docs/savetwo.csv"
                     edit_button_location = 700
                     edit_text_location = 725
                     print(f"Save 2 Button Clicked\nSave Selected: {save_selected}")
-                    show_edit_buttons = True
 
+                    show_edit_buttons = True
+                    savedata = load(savepath)
+                    
                 elif save_three_button and save_three_button.collidepoint(mouse):
                     save_selected = "Save 3"
+                    savepath = "docs/savethree.csv"
                     edit_button_location = 950
                     edit_text_location = 975
                     print(f"Save 3 Button Clicked\nSave Selected: {save_selected}")
+                    savedata = load(savepath)
                     show_edit_buttons = True
 
                 elif quit_button and quit_button.collidepoint(mouse):
@@ -169,7 +177,7 @@ def display_saves_menu(screen):
 
 
 # display ability menu
-def display_ability_menu(screen):
+def display_ability_menu(screen, savedata):
     show_ability_not_unlocked_yet = False
     show_display_ability_menu = True
 
