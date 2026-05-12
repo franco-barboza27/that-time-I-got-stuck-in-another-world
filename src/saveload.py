@@ -9,21 +9,24 @@ def load(savepath):
     save = pd.read_csv(filepath, skiprows=lambda x: 0==x, dtype={'col1':int, 'col1':bool, 'col1':bool, 'col1':bool, 'col1':bool, 'col1':bool, 'col1':bool})
     data = []
 
+    count = 0
     for i in range(0, len(save.columns.to_list())):
         info = save.columns.to_list()[i].split(".", 1)[0]
         try:
             info = int(info)
-        except:
-            
-            try:
-                info = bool(info)
-            except:
+            if count > 0:
                 try:
-                    info=str(info)
+                    info = bool(info)
                 except:
                     pass
+        except:
+            try:
+                info=str(info)
+            except:
+                pass
             
         data.append(info)
+        count += 1
     
     return data
         
@@ -41,3 +44,5 @@ def levelload(savepath):
         listblock.append(block.columns.to_list())
     
     return listblock
+
+print(load("saveone.csv"))
