@@ -8,10 +8,11 @@ import pygame
         coords = coords"""
     
 class obstacle():
-    def __init__(self, rectangle, type, scale, sprite):
+    def __init__(self, rectangle, blocktype, scale, sprite):
         self.rectangle = pygame.Rect(rectangle[0], rectangle[1], rectangle[2], rectangle[3])
         self.sprite = sprite
-        self.type = type
+        self.type = blocktype
+        self.scale = scale
     
     def mover(self, x, y):
         self.rectangle.move_ip(x, y)

@@ -94,20 +94,20 @@ class Player:
         # X Collision
         self.rect.x += dx
         for plat in platforms:
-            if self.rect.colliderect(plat):
-                if dx > 0: self.rect.right = plat.left
-                if dx < 0: self.rect.left = plat.right
+            if self.rect.colliderect(plat.rectangle):
+                if dx > 0: self.rect.right = plat.rectangle.left
+                if dx < 0: self.rect.left = plat.rectangle.right
 
         # Y Collision
         self.rect.y += dy
         for plat in platforms:
-            if self.rect.colliderect(plat):
+            if self.rect.colliderect(plat.rectangle):
                 if self.vel_y > 0:
-                    self.rect.bottom = plat.top
+                    self.rect.bottom = plat.rectangle.top
                     self.vel_y = 0
                     self.on_ground = True
                 elif self.vel_y < 0:
-                    self.rect.top = plat.bottom
+                    self.rect.top = plat.rectangle.bottom
                     self.vel_y = 0
 
         if keys[pygame.K_ESCAPE]:
@@ -140,15 +140,15 @@ def gameloop(player, blocks):
             raise SystemExit
 
     for block in blocks:
-        block.x -= AUTO_SCROLL_SPEED
+        block.rectangle.x -= AUTO_SCROLL_SPEED
 
     blocks = player.move(blocks)
 
-    blocks = [p for p in blocks if p.right > -100]
+    blocks = [p for p in blocks if p.rectangle.right > -100]
 
     screen.fill(SKY_BLUE)
     for plat in blocks:
-        pygame.draw.rect(screen, PLATFORM_COLOR, plat)
+        pygame.draw.rect(screen, PLATFORM_COLOR, plat.rectangle)
     player.draw()
 
     pygame.display.update()
