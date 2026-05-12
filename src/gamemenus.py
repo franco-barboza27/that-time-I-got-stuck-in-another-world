@@ -196,6 +196,7 @@ def display_ability_menu(screen):
                     elif double_jump == True:
                         if ability_selected != "":
                             ability_selected = "Double Jump"
+                            ability_selected_text_location = 1100
                             print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
                             return "open_character_menu"
 
@@ -208,6 +209,7 @@ def display_ability_menu(screen):
                     elif dash == True:
                         if ability_selected != "":
                             ability_selected = "Dash"
+                            ability_selected_text_location = 1100
                             print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
                             return "open_character_menu"
 
@@ -220,6 +222,7 @@ def display_ability_menu(screen):
                     elif wall_climb == True:
                         if ability_selected != "":
                             ability_selected = "Wall Climb"
+                            ability_selected_text_location = 1100
                             print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
                             return "open_character_menu"
 
@@ -247,7 +250,7 @@ def display_ability_menu(screen):
             confirm_text = font.render("Ability not unlocked yet:", True, WHITE)
             ability_selected_show = font.render(f"{ability_selected}", True, WHITE)
             screen.blit(confirm_text, (800, 100))
-            screen.blit(ability_selected_show, (1125, 200))
+            screen.blit(ability_selected_show, (ability_selected_text_location, 200))
 
             go_back_button = create_button(screen, mouse, small_font,"Go Back", 1127.5, 400, 175, 75, 1140, 410)
 
@@ -341,7 +344,7 @@ def display_character_menu(screen):
         pygame.display.update()
 
 
-"""def main():
+def main():
 
     current_menu = "saves"
 
@@ -375,4 +378,4 @@ def display_character_menu(screen):
     sys.exit()
 
 if __name__ == "__main__":
-    main()"""
+    main()
