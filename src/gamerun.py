@@ -33,7 +33,7 @@ def loop(map):
     for block in map:
         block = floatandround(block)
         print(block)
-        currblock = obstacle([int(block[0]),int(block[1]),int(block[2]),int(block[3])])
+        currblock = obstacle([int(block[0]),int(block[1]),int(block[2]),int(block[3])], block[4], block[5], block[6])
         blocks.append(currblock)
 
     running = True
@@ -41,5 +41,3 @@ def loop(map):
         gameloop(player,blocks)
 
 map = levelload("levelone.csv")
-
-# loop(map)
