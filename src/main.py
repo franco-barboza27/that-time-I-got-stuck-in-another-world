@@ -3,29 +3,40 @@ from gamemenus import *
 from gamerun import *
 
 def main():
+    current_menu = "saves"
+
     while True:
-        result = display_saves_menu(SCREEN)
+        if current_menu == "saves":
+            result = display_saves_menu(SCREEN)
 
-        if result == "quit":
-            pygame.quit()
-            sys.exit()
-            break
+            if result == "quit":
+                pygame.quit()
+                sys.exit()
 
-        if result == "open_ability_menu":
-            back = display_ability_menu(SCREEN)
+            elif result == "open_ability_menu":
+                current_menu = "abilities"
 
-            if back == "back_to_saves_menu":
-                continue
 
-        if result =="open_character_menu":
-            back = display_character_menu(SCREEN)
+        # ABILITY MENU
+        elif current_menu == "abilities":
+            result = display_ability_menu(SCREEN)
 
-            if back == "back_to_abilities_menu":
-                continue
-        
-        if result == "play":
-            loop(map)
-    
+            if result == "back_to_saves_menu":
+                current_menu = "saves"
+
+            elif result == "open_character_menu":
+                current_menu = "characters"
+
+        elif current_menu == "characters":
+            result = display_character_menu(SCREEN)
+
+            if result == "back_to_abilities_menu":
+                current_menu = "abilities"
+
+            elif result == "start_game":
+                loop(map)
+                current_menu = "saves"
+
     pygame.quit()
     sys.exit()
 

@@ -47,7 +47,7 @@ title_font = pygame.font.SysFont("helvetica", 160)
 def create_button(screen, mouse, font_type, text, left, top, width, height, text_width, text_height):
     button_text = font_type.render(text, True, WHITE)
     button = pygame.Rect(left, top, width, height)
-    button_rect = pygame.draw.rect(screen, LIGHT if button.collidepoint(mouse) else DARK, button, border_radius=10)
+    button_rect = pygame.draw.rect(screen, LIGHT if button.collidepoint(mouse) else DARK, button, border_radius=20)
     screen.blit(button_text, (text_width, text_height))
 
     return button_rect
@@ -281,9 +281,9 @@ def display_character_menu(screen):
                         show_character_not_unlocked_yet = True
                     elif character_one == True:
                         print("Play game now")
-                        show_play_placeholder = True
+                        return "start_game"
 
-                elif character_two_button and character_two.collidepoint(mouse):
+                elif character_two_button and character_two_button.collidepoint(mouse):
                     character_selected = "Character 2"
                     print(f"Character 2 Clicked\nCharacter Selected: {character_selected}")
 
@@ -291,8 +291,8 @@ def display_character_menu(screen):
                         show_character_not_unlocked_yet = True
                     elif character_two == True:
                         print("Play game now")
-                        show_play_placeholder = True
-
+                        return "start_game"
+                    
                 elif character_three_button and character_three_button.collidepoint(mouse):
                     character_selected = "Character 3"
                     print(f"Wall Climb Button Clicked\nAbility Selected: {character_selected}")
@@ -301,7 +301,7 @@ def display_character_menu(screen):
                         show_character_not_unlocked_yet = True
                     elif character_three == True:
                         print("Play game now")
-                        show_play_placeholder = True
+                        return "start_game"
 
                 elif go_back_button and go_back_button.collidepoint(mouse):
                     show_character_not_unlocked_yet = False
@@ -342,28 +342,37 @@ def display_character_menu(screen):
 
 
 """def main():
-    while True:
-        result = display_saves_menu(SCREEN)
 
-        if result == "quit":
-            pygame.quit()
-            sys.exit()
-            break
-        if result == "open_ability_menu":
+    current_menu = "saves"
+
+    while True:
+        if current_menu == "saves":
+            result = display_saves_menu(SCREEN)
+
+            if result == "quit":
+                pygame.quit()
+                sys.exit()
+
+            elif result == "open_ability_menu":
+                current_menu = "abilities"
+
+        elif current_menu == "abilities":
             result = display_ability_menu(SCREEN)
 
-            if back == "back_to_saves_menu":
-                continue
+            if result == "back_to_saves_menu":
+                current_menu = "saves"
 
-        if result =="open_character_menu":
-            back = display_character_menu(SCREEN)
+            elif result == "open_character_menu":
+                current_menu = "characters"
 
-            if back == "back_to_abilities_menu":
-                continue
+        elif current_menu == "characters":
+            result = display_character_menu(SCREEN)
+
+            if result == "back_to_abilities_menu":
+                current_menu = "abilities"
 
     pygame.quit()
     sys.exit()
-
 
 if __name__ == "__main__":
     main()"""
