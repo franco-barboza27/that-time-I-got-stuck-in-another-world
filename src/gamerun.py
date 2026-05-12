@@ -6,12 +6,6 @@ from game import *
 from obstacles import *
 pygame.init()
 
-map_one=True
-if map_one:
-    dash=True
-elif not map_one:
-    dash=False
-
 SCREEN_WIDTH, SCREEN_HEIGHT = 2560, 1395
 FPS = 60
 GRAVITY = 1
