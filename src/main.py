@@ -32,7 +32,7 @@ def main():
                 current_menu = "abilities"
 
             elif result == "start_game":
-                loop(map, charsprite, ability)
+                loop(levelload("levelone.csv"), charsprite, ability)
                 current_menu = "saves"
 
     pygame.quit()
