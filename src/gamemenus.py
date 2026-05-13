@@ -4,10 +4,7 @@
 import pygame
 from saveload import *
 import sys
-import pathlib
-import pandas
-
-
+from helpers import create_button
 
 # constants
 WHITE = (255,255,255)
@@ -23,26 +20,27 @@ SCREEN_WIDTH = 2560
 SCREEN_HEIGHT = 1395
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-# background loader
+# images
+# bg image
 bg_image = pygame.image.load("docs/menu_bg_placeholder.png").convert()
 bg_image = pygame.transform.scale(bg_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
+# dash icon
+dash_icon = pygame.image.load("docs/Blocks/dashicon.png").convert()
+dash_icon = pygame.transform.scale(dash_icon, (100, 100))
+
+# double jump icon
+double_jump_icon = pygame.image.load("docs/Blocks/dbljumbpicon.png").convert()
+double_jump_icon = pygame.transform.scale(double_jump_icon, (100, 100))
+
+# wall climb icon
+wall_climb_icon = pygame.image.load("docs/Blocks/walljumpicon.png").convert()
+wall_climb_icon = pygame.transform.scale(wall_climb_icon, (100, 100))
+
 # setup fonts
-font = pygame.font.SysFont("helvetica", 80)
-small_font = pygame.font.SysFont("helvetica", 40)
-title_font = pygame.font.SysFont("helvetica", 160)
-
-
-# helper functions
-# create button
-def create_button(screen, mouse, font_type, text, left, top, width, height, text_width, text_height):
-    button_text = font_type.render(text, True, WHITE)
-    button = pygame.Rect(left, top, width, height)
-    button_rect = pygame.draw.rect(screen, LIGHT if button.collidepoint(mouse) else DARK, button, border_radius=20)
-    screen.blit(button_text, (text_width, text_height))
-
-    return button_rect
-
+font = pygame.font.Font("docs/Fonts/LVDCGO__.TTF", 60)
+small_font = pygame.font.Font("docs/Fonts/LVDCGO__.TTF", 20)
+title_font = pygame.font.Font("docs/Fonts/LVDCGO__.TTF", 115)
 
 # display saves menu
 def display_saves_menu(screen):
@@ -133,11 +131,11 @@ def display_saves_menu(screen):
         if show_display_saves_menu:
             screen.blit(bg_image, (0, 0))
             saves_menu_text = title_font.render("Save Menu", True, WHITE)
-            screen.blit(saves_menu_text, (925, 100))
+            screen.blit(saves_menu_text, (625, 120))
 
-            save_one_button = create_button(screen, mouse, font, "Save 1", 145, 400, 700, 200, 367.5, 450)
-            save_two_button = create_button(screen, mouse, font, "Save 2", 145, 650, 700, 200, 367.5, 700)
-            save_three_button = create_button(screen, mouse, font, "Save 3", 145, 900, 700, 200, 367.5, 950)
+            save_one_button = create_button(screen, mouse, font, "Save 1", 145, 400, 700, 200, 285, 470)
+            save_two_button = create_button(screen, mouse, font, "Save 2", 145s, 650, 700, 200, 285, 720)
+            save_three_button = create_button(screen, mouse, font, "Save 3", 145, 900, 700, 200, 285, 970)
 
             quit_button = create_button(screen, mouse, small_font, "Quit", 100, 1250, 175, 75, 148, 1265)
 
@@ -167,7 +165,6 @@ def display_saves_menu(screen):
 
         pygame.display.update()
 
-
 # display ability menu
 def display_ability_menu(screen, savedata):
     show_ability_not_unlocked_yet = False
@@ -192,6 +189,7 @@ def display_ability_menu(screen, savedata):
 
                     if savedata[4] == False:
                         print(f"{ability_selected} not unlocked!")
+                        abilty_selected_location = 1000
                         show_ability_not_unlocked_yet = True
                     elif savedata[4] == True:
                         if ability_selected != "":
@@ -204,6 +202,7 @@ def display_ability_menu(screen, savedata):
 
                     if savedata[5] == False:
                         print(f"{ability_selected} not unlocked!")
+                        abilty_selected_location = 1125
                         show_ability_not_unlocked_yet = True
                     elif savedata[5] == True:
                         if ability_selected != "":
@@ -216,6 +215,7 @@ def display_ability_menu(screen, savedata):
 
                     if savedata[6] == False:
                         print(f"{ability_selected} not unlocked!")
+                        abilty_selected_location = 1050
                         show_ability_not_unlocked_yet = True
                     elif savedata[6] == True:
                         if ability_selected != "":
@@ -237,6 +237,7 @@ def display_ability_menu(screen, savedata):
             screen.blit(saves_menu_text, (800, 100))
 
             double_jump_button = create_button(screen, mouse, font,"Double Jump", 145, 500, 700, 200, 250, 550)
+            screen.blit(double_jump_icon, (500, 500))
             dash_button = create_button(screen, mouse, font, "Dash", 900, 500, 700, 200, 1130, 550)
             wall_climb_button = create_button(screen, mouse, font, "Wall Climb", 1650, 500, 700, 200, 1800, 550)
             go_back_to_saves_menu_button = create_button(screen, mouse, small_font, "Go Back", 100, 1250, 200, 75, 130, 1265)
@@ -247,13 +248,13 @@ def display_ability_menu(screen, savedata):
             confirm_text = font.render("Ability not unlocked yet:", True, WHITE)
             ability_selected_show = font.render(f"{ability_selected}", True, WHITE)
             screen.blit(confirm_text, (800, 100))
-            screen.blit(ability_selected_show, (1250, 200))
+            screen.blit(ability_selected_show, (abilty_selected_location, 200))
 
             go_back_button = create_button(screen, mouse, small_font,"Go Back", 1127.5, 400, 175, 75, 1140, 410)
 
         pygame.display.update()
 
-
+# display character menu
 def display_character_menu(screen, savedata):
     show_character_not_unlocked_yet = False
     show_play_placeholder = False
@@ -339,40 +340,3 @@ def display_character_menu(screen, savedata):
             screen.blit(playing_text, (0, 0))
 
         pygame.display.update()
-
-
-"""def main():
-
-    current_menu = "saves"
-
-    while True:
-        if current_menu == "saves":
-            result = display_saves_menu(SCREEN)
-
-            if result == "quit":
-                pygame.quit()
-                sys.exit()
-
-            elif result == "open_ability_menu":
-                current_menu = "abilities"
-
-        elif current_menu == "abilities":
-            result = display_ability_menu(SCREEN)
-
-            if result == "back_to_saves_menu":
-                current_menu = "saves"
-
-            elif result == "open_character_menu":
-                current_menu = "characters"
-
-        elif current_menu == "characters":
-            result = display_character_menu(SCREEN)
-
-            if result == "back_to_abilities_menu":
-                current_menu = "abilities"
-
-    pygame.quit()
-    sys.exit()
-
-if __name__ == "__main__":
-    main()"""
