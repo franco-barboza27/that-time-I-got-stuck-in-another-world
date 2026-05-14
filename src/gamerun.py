@@ -1,7 +1,5 @@
 import pygame
-import random
 from helpers import *
-from saveload import *
 from game import *
 from obstacles import *
 pygame.init()
@@ -23,7 +21,7 @@ clock = pygame.time.Clock()
 # declare window settings
 
 def loop(map, charsprite, ability):
-    player = Player()
+    player = Player(charsprite, ability)
     # make a player object and blocks
     blocks = []
     for block in map:

@@ -18,8 +18,8 @@ class obstacle():
         self.rectangle.move_ip(x, y)
 
     def spriteload(self):
-        thissprite = pygame.image.load(self.sprite)
-        thissprite.transform(thissprite, (self.rectangle[2]*50, self.rectangle[3]*50))
+        thissprite = pygame.image.load(self.sprite).convert()
+        thissprite.transform.scale(thissprite, (self.rectangle[2]*50, self.rectangle[3]*50))
         thissprite.blit(thissprite, (self.rectangle[0], self.rectangle[1]))
 
     def birdmovement(self, player):

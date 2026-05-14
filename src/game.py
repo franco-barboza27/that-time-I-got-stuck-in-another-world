@@ -1,6 +1,6 @@
 import pygame
 from obstacles import *
-import random
+from helpers import *
 
 pygame.init()
 
@@ -9,7 +9,7 @@ if map_one:
     dash=True
 elif not map_one:
     dash=False
-# Declaring the screen/game parameters, NOT GLOBALS BTW
+
 SCREEN_WIDTH, SCREEN_HEIGHT = 2560, 1395
 FPS = 60
 GRAVITY = 1
@@ -26,17 +26,15 @@ pygame.display.set_caption("That Time I Got Stuck In Another World With No Way B
 clock = pygame.time.Clock()
 
 class Player:
-    def __init__(self):    # x pos, y pos, x width, y height
-        self.rect = pygame.Rect(40, 70, 40, 40)
+    def __init__(self,ability,skin):    # x pos, y pos, x width, y height
+        self.rect = pygame.Rect(20, 850, 40, 40)
         self.vel_y = 0
         self.on_ground = False
         self.dashing = False
         self.dashTimer = 15
         self.dashClock = 0
-        # initializing the player's values 
     
     def move(self, platforms):
-        # move function that makes player directions
         dx = 0
         dy = 0
         direction=True
@@ -52,8 +50,7 @@ class Player:
         if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and not self.dashing:
             dx += PLAYER_SPEED
             direction=True
-        # changes their direction
-
+            
         # Dash with cooldown (1 second by default)
         if not hasattr(self, "dash_cooldown"):
             self.dash_cooldown = 0
@@ -62,7 +59,6 @@ class Player:
         if self.dash_cooldown > 0:
             self.dash_cooldown -= 1
 
-        # Increases speed in the player direction
         if dash==True:
             if keys[pygame.K_SPACE] and self.dash_cooldown == 0:
                 dash_amount = 500
@@ -81,13 +77,10 @@ class Player:
                 if self.dashClock >= self.dashTimer:
                     self.dashing = False
 
-        # makes the player go UP!
         if keys[pygame.K_UP] or keys[pygame.K_w] and self.on_ground:
             self.vel_y = JUMP_HEIGHT
             self.on_ground = False
 
-
-        # quick exits the game
         if keys[pygame.K_DELETE]:
             pygame.quit()
             raise SystemExit
@@ -117,32 +110,29 @@ class Player:
                     self.rect.top = plat.rectangle.bottom
                     self.vel_y = 0
 
-        # sets the player back to the start if they fall
         if keys[pygame.K_ESCAPE]:
-            self.rect = pygame.Rect(100, 300, 40, 40)
-            self.vel_y = 0
-            self.on_ground = False
+            return False, False
 
         if keys[pygame.K_r]:
             # Reset player state
             respawn()
-
-            # Reset platforms to starting state and return the new list
-            platforms = [pygame.Rect(0, 550, 800, 50)]
-            platforms += spawn_platforms(400, 10)
     
             # stop further movement processing this frame
-            return platforms    
 
-        return platforms
-    
+            blocks = []
+            for block in levelload("levelone.csv"):
+                block = floatandround(block)
+                currblock = obstacle([int(block[0]),int(block[1]),int(block[2]),int(block[3])], block[4], block[5], block[6])
+                blocks.append(currblock)
+
+                return platforms, False
+
     def draw(self):
         pygame.draw.rect(screen, PLAYER_COLOR, self.rect)
 
 def gameloop(player, blocks):
     clock.tick(FPS)
 
-    # Checks if the game was quitted.
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -151,16 +141,19 @@ def gameloop(player, blocks):
     for block in blocks:
         block.rectangle.x -= AUTO_SCROLL_SPEED
 
-    blocks = player.move(blocks)
-    # Moves blocks/the player
+    player.move(blocks)
+
     blocks = [p for p in blocks if p.rectangle.right > -100]
 
     screen.fill(SKY_BLUE)
-    # updates the blocks and player's position
     for plat in blocks:
         pygame.draw.rect(screen, PLATFORM_COLOR, plat.rectangle)
+        # plat.spriteload()
     player.draw()
 
-    # updates the screen's display
     pygame.display.update()
-    return blocks
+
+"""    if not playing:
+        return win
+    else:
+        return blocks"""
