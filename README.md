@@ -1,6 +1,6 @@
 # That Time I Got Stuck In Another World With No Way Back Home And Had To Use Magical Movement Abilities To Get Warped Back!
 ***
-![Image of project running correctly]<img width="2559" height="1368" alt="Screenshot 2026-05-14 101038" src="https://github.com/user-attachments/assets/e8c208b1-e788-4a73-92f2-443e98a1c71e" />
+<img width="2559" height="1368" alt="Screenshot 2026-05-14 101038" src="https://github.com/user-attachments/assets/e8c208b1-e788-4a73-92f2-443e98a1c71e" />
 
 ***
 It's a platformer where a kid from our world is pulled into the world of another. He has to use special abilites to navigate the harsh terrain and escape hazards. After completing each of the three levels, he'll warp back to our world. After each level, he earns one more special ability. Dash, Double Jump, and Wall Climb are the special abilities he'll earn throught the game.
