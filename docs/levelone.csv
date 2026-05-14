@@ -1,8 +1,8 @@
 blockx,blocky,xsize,ysize,blocktype/hazard,scale,imagepath
-0,800,100,50,block,1,docs\Blocks\smallgrass.png
-150,800,100,50,sign,1,docs\Blocks\smallgrass.pn
-170,800,100,50,sign,1,docs\Blocks\smallgrass.pn
-200,800,100,50,block,1,docs\Blocks\smallgrass.p
+100,800,100,50,block,1,docs\Blocks\smallgrass.png
+160,800,100,50,sign,1,docs\Blocks\smallgrass.pn
+200,800,100,50,sign,1,docs\Blocks\smallgrass.pn
+275,800,100,50,block,1,docs\Blocks\smallgrass.p
 325,800,100,50,block,1,docs\Blocks\smallgrass.p
 450,800,100,50,block,1,docs\Blocks\smallgrass.p
 1000,800,100,50,block,1,docs\Blocks\smallgrass.

@@ -49,49 +49,53 @@ def display_saves_menu(screen):
     show_deleting_text = False
     show_playing_save = False
     show_display_saves_menu = True
+    # base values for menu
 
 
     save_one_button = save_two_button = save_three_button = quit_button = delete_button = play_button = yes_button = no_button = go_back_button = None
 
     while True:
         mouse = pygame.mouse.get_pos()
+        # checks if event
         for event in pygame.event.get():
+            # event quit
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
+                # event 1st button clicked
                 if save_one_button and save_one_button.collidepoint(mouse):
                     save_selected = "Save 1"
                     edit_button_location = 450
                     edit_text_location = 475
-                    print(f"Save 1 Button Clicked\nSave Selected: {save_selected}")
                     show_edit_buttons = True
-
+                # event 2nd button clicked
                 elif save_two_button and save_two_button.collidepoint(mouse):
                     save_selected = "Save 2"
                     edit_button_location = 700
                     edit_text_location = 725
-                    print(f"Save 2 Button Clicked\nSave Selected: {save_selected}")
 
                     show_edit_buttons = True
-                    
+                # event 3rd button clicked
                 elif save_three_button and save_three_button.collidepoint(mouse):
                     save_selected = "Save 3"
                     edit_button_location = 950
                     edit_text_location = 975
-                    print(f"Save 3 Button Clicked\nSave Selected: {save_selected}")
                     show_edit_buttons = True
 
                 elif quit_button and quit_button.collidepoint(mouse):
+                    # event quit but button this time(? I didnt write this code :P)
                     return "quit", None
 
+
                 elif delete_button and delete_button.collidepoint(mouse):
-                    print(f"Deleting {save_selected}")
+                    # DELETE save
                     show_display_saves_menu = False
                     show_delete_save = True
 
                 elif play_button and play_button.collidepoint(mouse):
+                    # PLAY save (go to next menu)
                     if save_selected != "":
                         if save_selected == "Save 1":
                             savepath = "saveone.csv"
@@ -99,14 +103,12 @@ def display_saves_menu(screen):
                             savepath = "savetwo.csv"
                         elif save_selected == "Save 3":
                             savepath = "savethree.csv"
-
+                        # load save
                         savedata = load(savepath)
-                        print(f"Playing {save_selected}")
                         return "open_ability_menu", savedata
 
                 elif yes_button and yes_button.collidepoint(mouse):
-                    print(f"Delete {save_selected} here")
-
+                    # Deletes the save (if they clicked delete, and then yes)
                     save_selected = ""
 
                     show_delete_save = False
@@ -119,9 +121,11 @@ def display_saves_menu(screen):
                     play_button = None
 
                 elif no_button and no_button.collidepoint(mouse):
+                    # Checks if no was clicked
                     show_delete_save = False
                     show_display_saves_menu = True
 
+                # checks if they try to go back and goes back
                 elif go_back_button and go_back_button.collidepoint(mouse):
                     show_delete_save = False
                     show_deleting_text = False
@@ -129,21 +133,24 @@ def display_saves_menu(screen):
 
             
         if show_display_saves_menu:
+            # displays all the save menu visuals
             screen.blit(bg_image, (0, 0))
             saves_menu_text = title_font.render("Save Menu", True, WHITE)
             screen.blit(saves_menu_text, (625, 120))
 
             save_one_button = create_button(screen, mouse, font, "Save 1", 145, 400, 700, 200, 285, 470)
-            save_two_button = create_button(screen, mouse, font, "Save 2", 145s, 650, 700, 200, 285, 720)
+            save_two_button = create_button(screen, mouse, font, "Save 2", 145, 650, 700, 200, 285, 720)
             save_three_button = create_button(screen, mouse, font, "Save 3", 145, 900, 700, 200, 285, 970)
 
             quit_button = create_button(screen, mouse, small_font, "Quit", 100, 1250, 175, 75, 148, 1265)
-
+            # made buttons
         if show_edit_buttons:
+            # chamnges buttons from base to better
             play_button = create_button(screen, mouse, small_font, "Play Save", 900, edit_button_location, 240, 100, 930, edit_text_location)
             delete_button = create_button(screen, mouse, small_font, "Delete Save", 1175, edit_button_location, 240, 100, 1185, edit_text_location)
 
         if show_delete_save:
+            # shows the ddelete button and conirmation
             screen.blit(bg_image, (0, 0))
             confirm_text = font.render("Are you sure you want to delete:", True, WHITE)
             save_selected_show = font.render(f"{save_selected}", True, WHITE)
@@ -153,11 +160,13 @@ def display_saves_menu(screen):
             no_button = create_button(screen, mouse, font, "No", 1275, 350, 480, 150, 1460, 375)
 
         if show_deleting_text:
+            # after delete show stuff
             deleting_text = font.render("Deleting Save...", True, WHITE)
             screen.blit(deleting_text, (275, 300))
             go_back_button = create_button(screen, mouse, small_font, "Go Back", 305, 380, 175, 50, 345, 390)
         
         if show_playing_save:
+            # Shows the playing option and plays after (?)
             screen.blit(bg_image, (0, 0))
             playing_save_text = title_font.render(f"Playing {save_selected}", True, WHITE)
             screen.blit(playing_save_text, (0, 0))
@@ -173,8 +182,10 @@ def display_ability_menu(screen, savedata):
     ability_selected = ""
 
     double_jump_button = dash_button = wall_climb_button = go_back_to_saves_menu_button = go_back_button = None
+    # set base vars
 
     while True:
+        # checks for events
         mouse = pygame.mouse.get_pos()
 
         for event in pygame.event.get():
@@ -184,45 +195,41 @@ def display_ability_menu(screen, savedata):
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
 
+                # checks which button was clicked and if its unlocked or no
                 if double_jump_button and double_jump_button.collidepoint(mouse):
                     ability_selected = "Double Jump"
 
                     if savedata[4] == False:
-                        print(f"{ability_selected} not unlocked!")
                         abilty_selected_location = 1000
                         show_ability_not_unlocked_yet = True
                     elif savedata[4] == True:
                         if ability_selected != "":
                             ability_selected = "Double Jump"
-                            print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
                             return "open_character_menu", ability_selected
 
                 elif dash_button and dash_button.collidepoint(mouse):
                     ability_selected = "Dash"
 
                     if savedata[5] == False:
-                        print(f"{ability_selected} not unlocked!")
                         abilty_selected_location = 1125
                         show_ability_not_unlocked_yet = True
                     elif savedata[5] == True:
                         if ability_selected != "":
                             ability_selected = "Dash"
-                            print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
                             return "open_character_menu", ability_selected
 
                 elif wall_climb_button and wall_climb_button.collidepoint(mouse):
                     ability_selected = "Wall Climb"
 
                     if savedata[6] == False:
-                        print(f"{ability_selected} not unlocked!")
                         abilty_selected_location = 1050
                         show_ability_not_unlocked_yet = True
                     elif savedata[6] == True:
                         if ability_selected != "":
                             ability_selected = "Wall Climb"
-                            print(f"Dash Button Clicked\nAbility Selected: {ability_selected}")
                             return "open_character_menu", ability_selected
 
+                # goes back
                 elif go_back_button and go_back_button.collidepoint(mouse):
                     show_ability_not_unlocked_yet = False
                     show_display_ability_menu = True
@@ -231,6 +238,7 @@ def display_ability_menu(screen, savedata):
                     return "back_to_saves_menu", None
 
         if show_display_ability_menu == True:
+            # makes the menu look nice
             screen.blit(bg_image, (0, 0))
             
             saves_menu_text = title_font.render("Abilities Menu", True, WHITE)
@@ -241,7 +249,8 @@ def display_ability_menu(screen, savedata):
             dash_button = create_button(screen, mouse, font, "Dash", 900, 500, 700, 200, 1130, 550)
             wall_climb_button = create_button(screen, mouse, font, "Wall Climb", 1650, 500, 700, 200, 1800, 550)
             go_back_to_saves_menu_button = create_button(screen, mouse, small_font, "Go Back", 100, 1250, 200, 75, 130, 1265)
-
+        
+        # checks if its unlocked or NOT
         if show_ability_not_unlocked_yet == True:
             screen.blit(bg_image, (0, 0))
 
@@ -256,6 +265,7 @@ def display_ability_menu(screen, savedata):
 
 # display character menu
 def display_character_menu(screen, savedata):
+    # sets the needed variables
     show_character_not_unlocked_yet = False
     show_play_placeholder = False
     show_display_character_menu = True
@@ -265,6 +275,7 @@ def display_character_menu(screen, savedata):
     character_one_button = character_two_button = character_three_button = go_back_to_saves_menu_button = go_back_button = None
 
     while True:
+        # checks for events
         mouse = pygame.mouse.get_pos()
 
         for event in pygame.event.get():
@@ -276,32 +287,27 @@ def display_character_menu(screen, savedata):
 
                 if character_one_button and character_one_button.collidepoint(mouse):
                     character_selected = "Character 1"
-                    print(f"Character 2 Button Clicked\nCharacter Selected: {character_selected}")
 
+                    # checks each character and if its unlocked or not
                     if savedata[1] == False:
                         show_character_not_unlocked_yet = True
                     elif savedata[1] == True:
-                        print("Play game now")
                         return "start_game", character_selected
 
                 elif character_two_button and character_two_button.collidepoint(mouse):
                     character_selected = "Character 2"
-                    print(f"Character 2 Clicked\nCharacter Selected: {character_selected}")
 
                     if savedata[2] == False:
                         show_character_not_unlocked_yet = True
                     elif savedata[2] == True:
-                        print("Play game now")
                         return "start_game", character_selected
                     
                 elif character_three_button and character_three_button.collidepoint(mouse):
                     character_selected = "Character 3"
-                    print(f"Wall Climb Button Clicked\nAbility Selected: {character_selected}")
 
                     if savedata[3] == False:
                         show_character_not_unlocked_yet = True
                     elif savedata[3] == True:
-                        print("Play game now")
                         return "start_game", character_selected
 
                 elif go_back_button and go_back_button.collidepoint(mouse):
@@ -313,6 +319,7 @@ def display_character_menu(screen, savedata):
                     return "back_to_abilities_menu", None
 
         if show_display_character_menu == True:
+            # makes THIS menu look goo
             screen.blit(bg_image, (0, 0))
             
             saves_menu_text = title_font.render("Character Menu", True, WHITE)
@@ -324,6 +331,7 @@ def display_character_menu(screen, savedata):
             go_back_to_saves_menu_button = create_button(screen, mouse, small_font, "Go Back", 100, 1250, 200, 75, 130, 1265)
 
         if show_character_not_unlocked_yet == True:
+            # occurs when char not unlocked
             screen.blit(bg_image, (0, 0))
 
             confirm_text = font.render("Character not unlocked yet:", True, WHITE)
@@ -334,9 +342,11 @@ def display_character_menu(screen, savedata):
             go_back_button = create_button(screen, mouse, small_font,"Go Back", 1127.5, 400, 175, 75, 1140, 410)
 
         if show_play_placeholder == True:
+            # Placeholder for when the menu is closed.
             screen.blit(bg_image, (0, 0))
 
             playing_text = title_font.render(f"Selected {character_selected}", True, WHITE)
             screen.blit(playing_text, (0, 0))
 
+        # updates the screen.
         pygame.display.update()
