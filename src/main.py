@@ -4,10 +4,21 @@ from gamerun import *
 
 def main():
     # Uses strings to determine which menu is being showed
-    current_menu = "saves"
+    current_menu = "story"
 
     while True:
-        if current_menu == "saves":
+        if current_menu == "story":
+            # story menu
+            result = display_story_menu(SCREEN)
+
+            if result == "quit":
+                pygame.quit()
+                sys.exit()
+            
+            elif result == "open_saves_menu":
+                current_menu = "saves"
+
+        elif current_menu == "saves":
             # start menu
             result, data = display_saves_menu(SCREEN)
 

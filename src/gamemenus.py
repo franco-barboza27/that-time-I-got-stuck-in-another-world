@@ -42,6 +42,53 @@ font = pygame.font.Font("docs/Fonts/LVDCGO__.TTF", 45)
 small_font = pygame.font.Font("docs/Fonts/LVDCGO__.TTF", 20)
 title_font = pygame.font.Font("docs/Fonts/LVDCGO__.TTF", 115)
 
+# display story menu
+def display_story_menu(screen):
+    continue_button = None
+    show_story_menu = True
+
+    while True:
+        mouse = pygame.mouse.get_pos()
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if continue_button and continue_button.collidepoint(mouse):
+                    return "open_saves_menu"
+                elif quit_button and quit_button.collidepoint(mouse):
+                    # event quit but button this time(? I didnt write this code :P)
+                    return "quit", None
+                
+        if show_story_menu:
+                # displays all the save menu visuals
+                screen.blit(bg_image, (0, 0))
+                story_title_text = title_font.render("Story", True, WHITE)
+                screen.blit(story_title_text, (875, 100))
+
+                story_text_line_one = font.render("You are a normal teenager who was", True, WHITE)
+                story_text_line_two = font.render("living their everyday life until one", True, WHITE)
+                story_text_line_three = font.render("day they get transported to a ", True, WHITE)
+                story_text_line_four = font.render("fantasy world with various obstacles", True, WHITE)
+                story_text_line_five = font.render("and hazards blocking your way from", True, WHITE)
+                story_text_line_six = font.render("returning to home.", True, WHITE)
+                screen.blit(story_text_line_one, (350, 300))
+                screen.blit(story_text_line_two, (375, 375))
+                screen.blit(story_text_line_three, (445, 450))
+                screen.blit(story_text_line_four, (280, 525))
+                screen.blit(story_text_line_five, (330, 600))
+                screen.blit(story_text_line_six, (750, 675))
+
+                continue_button = create_button(screen, mouse, small_font, "Continue", 1150, 900, 245, 50, 1167.5, 912.5)
+
+                quit_button = create_button(screen, mouse, small_font, "Quit", 100, 1250, 175, 75, 140, 1275)
+
+
+        pygame.display.update()
+            
+        
+                
 # display saves menu
 def display_saves_menu(screen):
     show_delete_save = False
