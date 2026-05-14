@@ -92,3 +92,11 @@ def create_button(screen, mouse, font_type, text, left, top, width, height, text
     screen.blit(button_text, (text_width, text_height))
 
     return button_rect
+
+def gamesave(savepath):
+    basepath = pathlib.Path(__file__).resolve().parent
+    filepath = basepath.parent / 'docs' / savepath
+
+    # skips the rows that arent the first(correct one) and then makes the data have specific types
+    save = pd.read_csv(filepath, skiprows=lambda x: 0==x, dtype={'col1':int, 'col1':bool, 'col1':bool, 'col1':bool, 'col1':bool, 'col1':bool, 'col1':bool})
+    data = []

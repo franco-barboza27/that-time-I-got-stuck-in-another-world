@@ -125,7 +125,7 @@ class Player:
                 currblock = obstacle([int(block[0]),int(block[1]),int(block[2]),int(block[3])], block[4], block[5], block[6])
                 blocks.append(currblock)
 
-                return platforms
+                return platforms, False
 
     def draw(self):
         pygame.draw.rect(screen, PLAYER_COLOR, self.rect)
@@ -141,18 +141,19 @@ def gameloop(player, blocks):
     for block in blocks:
         block.rectangle.x -= AUTO_SCROLL_SPEED
 
-    win, playing = player.move(blocks)
+    player.move(blocks)
 
     blocks = [p for p in blocks if p.rectangle.right > -100]
 
     screen.fill(SKY_BLUE)
     for plat in blocks:
         pygame.draw.rect(screen, PLATFORM_COLOR, plat.rectangle)
+        # plat.spriteload()
     player.draw()
 
     pygame.display.update()
 
-    if not playing:
+"""    if not playing:
         return win
     else:
-        return blocks
+        return blocks"""
