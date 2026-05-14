@@ -26,19 +26,19 @@ bg_image = pygame.image.load("docs/menu_bg_placeholder.png").convert()
 bg_image = pygame.transform.scale(bg_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # dash icon
-dash_icon = pygame.image.load("docs/Blocks/dashicon.png").convert()
-dash_icon = pygame.transform.scale(dash_icon, (100, 100))
+dash_icon = pygame.image.load("docs/Blocks/dashicon_new.png").convert()
+dash_icon = pygame.transform.scale(dash_icon, (350, 350))
 
 # double jump icon
-double_jump_icon = pygame.image.load("docs/Blocks/dbljumbpicon.png").convert()
-double_jump_icon = pygame.transform.scale(double_jump_icon, (100, 100))
+double_jump_icon = pygame.image.load("docs/Blocks/dbljumbpicon_new.png").convert()
+double_jump_icon = pygame.transform.scale(double_jump_icon, (350, 350))
 
 # wall climb icon
-wall_climb_icon = pygame.image.load("docs/Blocks/walljumpicon.png").convert()
-wall_climb_icon = pygame.transform.scale(wall_climb_icon, (100, 100))
+wall_climb_icon = pygame.image.load("docs/Blocks/walljumpicon_new.png").convert()
+wall_climb_icon = pygame.transform.scale(wall_climb_icon, (350, 350))
 
 # setup fonts
-font = pygame.font.Font("docs/Fonts/LVDCGO__.TTF", 60)
+font = pygame.font.Font("docs/Fonts/LVDCGO__.TTF", 45)
 small_font = pygame.font.Font("docs/Fonts/LVDCGO__.TTF", 20)
 title_font = pygame.font.Font("docs/Fonts/LVDCGO__.TTF", 115)
 
@@ -51,7 +51,7 @@ def display_saves_menu(screen):
     show_display_saves_menu = True
     # base values for menu
 
-
+    save_selected = ""
     save_one_button = save_two_button = save_three_button = quit_button = delete_button = play_button = yes_button = no_button = go_back_button = None
 
     while True:
@@ -68,20 +68,20 @@ def display_saves_menu(screen):
                 if save_one_button and save_one_button.collidepoint(mouse):
                     save_selected = "Save 1"
                     edit_button_location = 450
-                    edit_text_location = 475
+                    edit_text_location = 485
                     show_edit_buttons = True
                 # event 2nd button clicked
                 elif save_two_button and save_two_button.collidepoint(mouse):
                     save_selected = "Save 2"
                     edit_button_location = 700
-                    edit_text_location = 725
+                    edit_text_location = 735
 
                     show_edit_buttons = True
                 # event 3rd button clicked
                 elif save_three_button and save_three_button.collidepoint(mouse):
                     save_selected = "Save 3"
                     edit_button_location = 950
-                    edit_text_location = 975
+                    edit_text_location = 985
                     show_edit_buttons = True
 
                 elif quit_button and quit_button.collidepoint(mouse):
@@ -136,28 +136,28 @@ def display_saves_menu(screen):
             # displays all the save menu visuals
             screen.blit(bg_image, (0, 0))
             saves_menu_text = title_font.render("Save Menu", True, WHITE)
-            screen.blit(saves_menu_text, (625, 120))
+            screen.blit(saves_menu_text, (600, 120))
 
-            save_one_button = create_button(screen, mouse, font, "Save 1", 145, 400, 700, 200, 285, 470)
-            save_two_button = create_button(screen, mouse, font, "Save 2", 145, 650, 700, 200, 285, 720)
-            save_three_button = create_button(screen, mouse, font, "Save 3", 145, 900, 700, 200, 285, 970)
+            save_one_button = create_button(screen, mouse, font, "Save 1", 145, 400, 700, 200, 345, 470)
+            save_two_button = create_button(screen, mouse, font, "Save 2", 145, 650, 700, 200, 345, 720)
+            save_three_button = create_button(screen, mouse, font, "Save 3", 145, 900, 700, 200, 345, 970)
 
-            quit_button = create_button(screen, mouse, small_font, "Quit", 100, 1250, 175, 75, 148, 1265)
+            quit_button = create_button(screen, mouse, small_font, "Quit", 100, 1250, 175, 75, 140, 1275)
             # made buttons
         if show_edit_buttons:
             # chamnges buttons from base to better
-            play_button = create_button(screen, mouse, small_font, "Play Save", 900, edit_button_location, 240, 100, 930, edit_text_location)
-            delete_button = create_button(screen, mouse, small_font, "Delete Save", 1175, edit_button_location, 240, 100, 1185, edit_text_location)
+            play_button = create_button(screen, mouse, small_font, "Play Save", 900, edit_button_location, 240, 100, 910, edit_text_location)
+            delete_button = create_button(screen, mouse, small_font, "Delete Save", 1175, edit_button_location, 300, 100, 1185, edit_text_location)
 
         if show_delete_save:
             # shows the ddelete button and conirmation
             screen.blit(bg_image, (0, 0))
             confirm_text = font.render("Are you sure you want to delete:", True, WHITE)
             save_selected_show = font.render(f"{save_selected}", True, WHITE)
-            screen.blit(confirm_text, (650, 60))
+            screen.blit(confirm_text, (400, 60))
             screen.blit(save_selected_show, (1100, 175))
-            yes_button = create_button(screen, mouse, font, "Yes", 675, 350, 480, 150, 850, 375)
-            no_button = create_button(screen, mouse, font, "No", 1275, 350, 480, 150, 1460, 375)
+            yes_button = create_button(screen, mouse, font, "Yes", 675, 250, 480, 150, 815, 300)
+            no_button = create_button(screen, mouse, font, "No", 1275, 250, 480, 150, 1460, 300)
 
         if show_deleting_text:
             # after delete show stuff
@@ -200,33 +200,30 @@ def display_ability_menu(screen, savedata):
                     ability_selected = "Double Jump"
 
                     if savedata[4] == False:
-                        abilty_selected_location = 1000
+                        ability_selected_location = 950
                         show_ability_not_unlocked_yet = True
                     elif savedata[4] == True:
-                        if ability_selected != "":
-                            ability_selected = "Double Jump"
+                        if ability_selected == "Double Jump":
                             return "open_character_menu", ability_selected
 
                 elif dash_button and dash_button.collidepoint(mouse):
                     ability_selected = "Dash"
 
                     if savedata[5] == False:
-                        abilty_selected_location = 1125
+                        ability_selected_location = 1125
                         show_ability_not_unlocked_yet = True
                     elif savedata[5] == True:
-                        if ability_selected != "":
-                            ability_selected = "Dash"
+                        if ability_selected == "Dash":
                             return "open_character_menu", ability_selected
 
                 elif wall_climb_button and wall_climb_button.collidepoint(mouse):
                     ability_selected = "Wall Climb"
 
                     if savedata[6] == False:
-                        abilty_selected_location = 1050
+                        ability_selected_location = 1000
                         show_ability_not_unlocked_yet = True
                     elif savedata[6] == True:
-                        if ability_selected != "":
-                            ability_selected = "Wall Climb"
+                        if ability_selected == "Wall Climb":
                             return "open_character_menu", ability_selected
 
                 # goes back
@@ -242,13 +239,15 @@ def display_ability_menu(screen, savedata):
             screen.blit(bg_image, (0, 0))
             
             saves_menu_text = title_font.render("Abilities Menu", True, WHITE)
-            screen.blit(saves_menu_text, (800, 100))
+            screen.blit(saves_menu_text, (350, 150))
 
-            double_jump_button = create_button(screen, mouse, font,"Double Jump", 145, 500, 700, 200, 250, 550)
-            screen.blit(double_jump_icon, (500, 500))
-            dash_button = create_button(screen, mouse, font, "Dash", 900, 500, 700, 200, 1130, 550)
-            wall_climb_button = create_button(screen, mouse, font, "Wall Climb", 1650, 500, 700, 200, 1800, 550)
-            go_back_to_saves_menu_button = create_button(screen, mouse, small_font, "Go Back", 100, 1250, 200, 75, 130, 1265)
+            double_jump_button = create_button(screen, mouse, font, "Double Jump", 145, 500, 700, 525, 185, 550)
+            screen.blit(double_jump_icon, (325, 650))
+            dash_button = create_button(screen, mouse, font, "Dash", 900, 500, 700, 525, 1130, 550)
+            screen.blit(dash_icon, (1075, 650))
+            wall_climb_button = create_button(screen, mouse, font, "Wall Climb", 1650, 500, 700, 525, 1775, 550)
+            screen.blit(wall_climb_icon, (1825, 650))
+            go_back_to_saves_menu_button = create_button(screen, mouse, small_font, "Go Back", 100, 1250, 225, 75, 130, 1275)
         
         # checks if its unlocked or NOT
         if show_ability_not_unlocked_yet == True:
@@ -256,10 +255,10 @@ def display_ability_menu(screen, savedata):
 
             confirm_text = font.render("Ability not unlocked yet:", True, WHITE)
             ability_selected_show = font.render(f"{ability_selected}", True, WHITE)
-            screen.blit(confirm_text, (800, 100))
-            screen.blit(ability_selected_show, (abilty_selected_location, 200))
+            screen.blit(confirm_text, (600, 100))
+            screen.blit(ability_selected_show, (ability_selected_location, 200))
 
-            go_back_button = create_button(screen, mouse, small_font,"Go Back", 1127.5, 400, 175, 75, 1140, 410)
+            go_back_button = create_button(screen, mouse, small_font,"Go Back", 1127.5, 400, 225, 75, 1150, 425)
 
         pygame.display.update()
 
@@ -322,13 +321,13 @@ def display_character_menu(screen, savedata):
             # makes THIS menu look goo
             screen.blit(bg_image, (0, 0))
             
-            saves_menu_text = title_font.render("Character Menu", True, WHITE)
-            screen.blit(saves_menu_text, (725, 100))
+            character_menu_text = title_font.render("Character Menu", True, WHITE)
+            screen.blit(character_menu_text, (200, 160))
 
-            character_one_button = create_button(screen, mouse, font,"Character 1", 145, 500, 700, 200, 285, 550)
-            character_two_button = create_button(screen, mouse, font, "Character 2", 900, 500, 700, 200, 1045, 550)
-            character_three_button = create_button(screen, mouse, font, "Character 3", 1650, 500, 700, 200, 1785, 550)
-            go_back_to_saves_menu_button = create_button(screen, mouse, small_font, "Go Back", 100, 1250, 200, 75, 130, 1265)
+            character_one_button = create_button(screen, mouse, font,"Character 1", 145, 500, 700, 200, 180, 550)
+            character_two_button = create_button(screen, mouse, font, "Character 2", 900, 500, 700, 200, 925, 550)
+            character_three_button = create_button(screen, mouse, font, "Character 3", 1650, 500, 700, 200, 1675, 550)
+            go_back_to_saves_menu_button = create_button(screen, mouse, small_font, "Go Back", 100, 1250, 225, 75, 130, 1275)
 
         if show_character_not_unlocked_yet == True:
             # occurs when char not unlocked
@@ -336,10 +335,10 @@ def display_character_menu(screen, savedata):
 
             confirm_text = font.render("Character not unlocked yet:", True, WHITE)
             character_selected_show = font.render(f"{character_selected}", True, WHITE)
-            screen.blit(confirm_text, (800, 100))
-            screen.blit(character_selected_show, (1125, 200))
+            screen.blit(confirm_text, (450, 100))
+            screen.blit(character_selected_show, (900, 200))
 
-            go_back_button = create_button(screen, mouse, small_font,"Go Back", 1127.5, 400, 175, 75, 1140, 410)
+            go_back_button = create_button(screen, mouse, small_font,"Go Back", 1127.5, 400, 200, 75, 1140, 425)
 
         if show_play_placeholder == True:
             # Placeholder for when the menu is closed.
