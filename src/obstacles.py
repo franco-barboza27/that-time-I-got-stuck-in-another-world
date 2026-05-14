@@ -22,8 +22,8 @@ class obstacle():
         thissprite.transform(thissprite, (self.rectangle[2]*50, self.rectangle[3]*50))
         thissprite.blit(thissprite, (self.rectangle[0], self.rectangle[1]))
 
-    def birdmovement(self, player, screen):
-        #if player.state=="air" and bird.danger=="bird":
+    def birdmovement(self, player):
+        #Checks what direction the player is in (from the bird block)
 
         if player.left >= self.rectangle.left:
             xdif = True
@@ -43,11 +43,14 @@ class obstacle():
             ydir = 1
         else:
             ydir = -1
-
-        self.mover(xdir, ydir)
-
+        
+        # checks if the player is in the air or not, makes the bird not move if they are on ground.
         if player.on_ground == True:
-            xdir = xdir*-1
-            ydir = ydir*-1
+            xdir = xdir*0
+            ydir = ydir*0
         else:
             pass
+
+        # moves the bird towards player
+
+        self.mover(xdir, ydir)
