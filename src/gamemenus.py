@@ -22,19 +22,19 @@ SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # images
 # bg image
-bg_image = pygame.image.load("docs/menu_bg_placeholder.png").convert()
+bg_image = pygame.image.load("docs/menu_bg.png").convert()
 bg_image = pygame.transform.scale(bg_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # dash icon
-dash_icon = pygame.image.load("docs/Blocks/dashicon_new.png").convert()
+dash_icon = pygame.image.load("docs\Blocks\Ability Icons\dash_icon.png").convert()
 dash_icon = pygame.transform.scale(dash_icon, (350, 350))
 
 # double jump icon
-double_jump_icon = pygame.image.load("docs/Blocks/dbljumbpicon_new.png").convert()
+double_jump_icon = pygame.image.load("docs\Blocks\Ability Icons\double_jump_icon.png").convert()
 double_jump_icon = pygame.transform.scale(double_jump_icon, (350, 350))
 
 # wall climb icon
-wall_climb_icon = pygame.image.load("docs/Blocks/walljumpicon_new.png").convert()
+wall_climb_icon = pygame.image.load("docs\Blocks\Ability Icons\wall_jump_icon.png").convert()
 wall_climb_icon = pygame.transform.scale(wall_climb_icon, (350, 350))
 
 # setup fonts
